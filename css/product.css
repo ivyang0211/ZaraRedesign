@@ -1,0 +1,630 @@
+/* General Body & Reset */
+body {
+    margin: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #ffffff;
+    color: #000000;
+    overflow-x: hidden;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Product Page Container */
+.product-page-container {
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Header/Navbar - Replicated from Homepage/Catalogue */
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    padding: 15px 80px 10px 80px; /* Increased left/right padding for bigger margins */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    z-index: 100;
+    box-sizing: border-box;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+}
+.header-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 25px;
+}
+.zara-logo {
+    height: 40px; /* Made Zara logo bigger */
+    width: auto;
+    cursor: pointer;
+}
+.utility-nav {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+.utility-item {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+.icon {
+    height: 32px; /* Made all utility icons bigger */
+    width: 32px;
+    cursor: pointer;
+}
+.log-in-text {
+    font-size: 16px;
+    font-weight: normal;
+    color: #000000;
+    margin-left: 10px;
+}
+.count {
+    font-size: 13px;
+    background-color: #000000;
+    color: #ffffff;
+    border-radius: 50%;
+    padding: 3px 7px;
+    position: absolute;
+    top: -10px;
+    right: -12px;
+    line-height: 1;
+    min-width: 14px;
+    text-align: center;
+}
+.header-bottom-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+}
+.main-nav {
+    display: flex;
+    gap: 70px; /* More spacing between nav items */
+}
+.nav-item {
+    font-size: 18px;
+    font-weight: normal;
+    color: #000000;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0;
+    position: relative;
+    transition: color 0.2s ease;
+}
+.nav-item:hover {
+    color: #555555;
+}
+.search-section {
+    display: flex;
+    align-items: flex-end;
+    position: relative;
+}
+.search-input-header {
+    width: 300px;
+    padding: 0 5px 5px 0;
+    font-size: 18px;
+    border: none;
+    border-bottom: 1px solid #000;
+    outline: none;
+    background: transparent;
+    text-align: left;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: normal;
+    letter-spacing: 0.5px;
+    color: #000;
+}
+.search-input-header::placeholder {
+    color: #999999;
+}
+.search-icon-btn {
+    height: 28px;
+    width: 28px;
+    cursor: pointer;
+    margin-left: 10px;
+    transform: translateY(-4px);
+}
+
+/* Search Overlay (Full-screen) */
+.search-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.98);
+    z-index: 101;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.search-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+.search-input-overlay {
+    width: 80%;
+    max-width: 600px;
+    padding: 20px 0;
+    font-size: 36px;
+    border: none;
+    border-bottom: 2px solid #000;
+    outline: none;
+    background: transparent;
+    text-align: center;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: normal;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.search-input-overlay::placeholder {
+    color: #999999;
+}
+.close-search {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    background: none;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+    color: #000;
+    padding: 10px;
+    font-weight: 300;
+}
+
+/* Product Listing Main Content */
+.product-listing-content {
+    margin-top: 135px; /* Adjust margin-top to clear fixed header */
+    padding: 40px 80px; /* Consistent padding with header */
+}
+
+/* --- MODIFIED FOR POINT 1 & 4: Centered Title, Filters Below --- */
+.category-title-bar {
+    display: flex;
+    flex-direction: column; /* Stack title and filters vertically */
+    align-items: center;    /* Center items horizontally */
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.category-title {
+    font-size: 38px;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+    margin-bottom: 20px; /* Space below title before filters */
+}
+
+.filters-sort-section {
+    display: flex;
+    align-items: center;
+    gap: 30px; /* Space between sort and filter groups */
+    flex-wrap: wrap;
+    width: 100%; /* Allow filter/sort section to span width if needed */
+    justify-content: flex-end; /* Align sort/filter groups to the right (or use 'center') */
+}
+/* --- END OF MODIFICATIONS FOR POINT 1 & 4 --- */
+
+
+/* Sort Dropdown */
+.sort-dropdown {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+.sort-label {
+    padding-right: 5px;
+}
+.sort-arrow {
+    height: 12px; /* Small arrow icon */
+    width: auto;
+}
+.sort-options-list {
+    position: absolute;
+    top: 100%; /* Position below the label */
+    left: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    min-width: 180px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    display: none; /* Hidden by default, shown by JS */
+    flex-direction: column;
+}
+.sort-options-list.active {
+    display: flex;
+}
+.sort-option {
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.sort-option:hover, .sort-option.active {
+    background-color: #f0f0f0;
+}
+
+/* Filter Dropdowns */
+.filter-options {
+    display: flex;
+    gap: 20px; /* Space between filter dropdowns */
+    flex-wrap: wrap;
+}
+.filter-dropdown {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #000; /* Underline effect */
+    padding-bottom: 5px;
+}
+.filter-label {
+    padding-right: 5px;
+}
+.filter-icon {
+    height: 12px; /* Small filter arrow/icon */
+    width: auto;
+}
+.filter-content {
+    position: absolute;
+    top: calc(100% + 5px); /* Position below the label */
+    left: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    min-width: 150px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    display: none; /* Hidden by default, shown by JS */
+    flex-direction: column; /* Default for most filters */
+    padding: 10px;
+}
+.filter-content.active {
+    display: flex;
+}
+
+/* --- MODIFIED FOR POINT 2: Side-by-side S-XL sizes --- */
+#sizeFilter .filter-content {
+    flex-direction: row; /* Arrange S-XL items horizontally */
+    flex-wrap: wrap;     /* Allow items to wrap */
+    gap: 10px;           /* Space between size options (adjust as needed) */
+    min-width: 200px;    /* Adjust min-width if necessary for horizontal layout */
+}
+#sizeFilter .filter-content label {
+    margin-bottom: 0; /* Remove bottom margin for horizontal items */
+    margin-right: 5px; /* Optional: small right margin */
+}
+/* --- END OF MODIFICATION FOR POINT 2 --- */
+
+.filter-content label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px; /* Default for vertically stacked items */
+    cursor: pointer;
+    font-size: 13px; /* Slightly smaller font for filter options */
+    text-transform: none;
+}
+.filter-content input[type="checkbox"] {
+    margin-right: 8px;
+    accent-color: #000; /* Checkbox color */
+}
+.filter-color-options {
+    flex-direction: row; /* Colors usually in a row */
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.filter-color-swatch {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    position: relative;
+}
+.filter-color-swatch input[type="checkbox"] {
+    position: absolute;
+    opacity: 0; /* Hide checkbox */
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+.filter-color-swatch input[type="checkbox"]:checked + .filter-color-swatch::after { /* Visual checkmark for color */
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff; /* Default check for dark colors */
+    font-size: 14px;
+    text-shadow: 0 0 2px rgba(0,0,0,0.5);
+}
+.filter-color-swatch[data-color="white"] input[type="checkbox"]:checked + .filter-color-swatch::after {
+    color: #000; /* Black check for white swatch */
+    text-shadow: none;
+}
+.filter-color-swatch input[type="checkbox"]:checked {
+    border-color: #000; /* Highlight active swatch */
+}
+
+/* Specific filter color swatches */
+.filter-color-swatch[data-color="black"] { background-color: #000; }
+.filter-color-swatch[data-color="white"] { background-color: #fff; border-color: #ccc; }
+.filter-color-swatch[data-color="grey"] { background-color: #808080; }
+.filter-color-swatch[data-color="red"] { background-color: #E74C3C; }
+
+/* Product Grid Section */
+.product-grid-section {
+    padding: 40px 0; /* Space above/below the grid */
+}
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+    gap: 20px;
+}
+
+/* Product Card - Replicated from Homepage */
+.product-card {
+    background-color: #ffffff;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+.product-thumbnail {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 10px;
+}
+.product-card-heart {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+    filter: grayscale(100%) brightness(0%) sepia(100%) hue-rotate(0deg) saturate(0%) invert(0%); /* Default black/grey */
+    transition: filter 0.3s ease;
+}
+.product-card-heart.favorited {
+    filter: invert(18%) sepia(91%) saturate(7483%) hue-rotate(359deg) brightness(99%) contrast(110%); /* Red color */
+}
+.color-swatches {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-top: 10px;
+    padding-left: 5px;
+    margin-bottom: 5px;
+}
+.swatch {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1px solid #cccccc;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+/* Specific color swatches (from homepage, adjust for product colors) */
+.swatch[data-color="black"] { background-color: #000; }
+.swatch[data-color="white"] { background-color: #fff; border-color: #ccc; }
+.swatch[data-color="navy"] { background-color: #000080; }
+.swatch[data-color="grey"] { background-color: #808080; }
+.swatch[data-color="beige"] { background-color: #F5F5DC; }
+.swatch[data-color="pink"] { background-color: #FFC0CB; }
+.swatch[data-color="blue"] { background-color: #3498DB; }
+.swatch[data-color="green"] { background-color: #2ECC71; }
+.swatch[data-color="yellow"] { background-color: #F1C40F; }
+.swatch[data-color="red"] { background-color: #E74C3C; }
+.swatch[data-color="purple"] { background-color: #9B59B6; }
+.swatch[data-color="brown"] { background-color: #A0522D; }
+.swatch[data-color="orange"] { background-color: #FFA500; }
+.swatch.active {
+    border: 2px solid #000;
+    transform: scale(1.1);
+}
+.product-meta {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 1.4;
+    margin: 0;
+    padding-left: 5px;
+}
+.product-category {
+    font-size: 14px;
+    color: #666;
+    text-transform: uppercase;
+    margin-top: 5px;
+}
+.product-name {
+    font-size: 17px;
+    font-weight: normal;
+    color: #000;
+    margin-bottom: 2px;
+}
+.product-price {
+    font-size: 17px;
+    font-weight: normal;
+    color: #000;
+    margin-bottom: 5px;
+}
+.product-size {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+/* Footer - Replicated from Homepage */
+.main-footer {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 40px;
+    text-align: center;
+    font-size: 14px;
+    margin-top: 60px; /* Space above footer */
+}
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.main-footer p {
+    margin: 0 0 20px 0;
+    line-height: 1.5;
+}
+.social-links a {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+.social-links a:hover {
+    color: #cccccc;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .main-header { padding: 10px 40px; }
+    .zara-logo { height: 35px; }
+    .icon { height: 28px; width: 28px; }
+    .log-in-text { font-size: 15px; }
+    .header-top-row { margin-bottom: 20px; }
+    .main-nav { gap: 50px; }
+    .nav-item { font-size: 16px; }
+    .search-input-header { width: 250px; font-size: 16px; }
+    .search-icon-btn { height: 24px; width: 24px; }
+    .search-input-overlay { font-size: 32px; }
+
+    .product-listing-content {
+        padding: 30px 40px;
+        margin-top: 120px;
+    }
+    .category-title { font-size: 34px; }
+    .filters-sort-section { gap: 20px; }
+    .sort-dropdown, .filter-dropdown { font-size: 13px; }
+    .product-grid { gap: 15px; }
+    .swatch { width: 20px; height: 20px; }
+    .product-card-heart { height: 18px; width: 18px; }
+    .product-category, .product-size { font-size: 13px; }
+    .product-name, .product-price { font-size: 16px; }
+
+    .main-footer { padding: 30px 20px; }
+}
+
+@media (max-width: 768px) {
+    .main-header {
+        /* flex-direction: column; */ /* Already column by default */
+        height: auto;
+        padding: 10px 15px;
+    }
+    .header-top-row, .header-bottom-row {
+        width: 100%;
+        /* justify-content: space-between; */ /* Handled by internal flex items */
+        margin-bottom: 10px;
+    }
+    .header-top-row {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .main-nav {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-left: 0;
+    }
+    .search-section {
+        margin-left: 0;
+        justify-content: center;
+        width: 100%;
+    }
+    .search-input-header {
+        width: calc(100% - 40px);
+        font-size: 15px;
+    }
+    .search-icon-btn { height: 20px; width: 20px; }
+
+    .product-listing-content {
+        padding: 20px 15px;
+        margin-top: 180px; /* May need adjustment depending on final header height */
+    }
+    .category-title-bar {
+        /* flex-direction: column; */ /* Already column from desktop */
+        align-items: center;    /* Keep centered, or use flex-start for left align */
+        gap: 15px;
+    }
+    .category-title { font-size: 30px; margin-bottom: 15px; }
+    .filters-sort-section {
+        width: 100%;
+        justify-content: space-around; /* Or 'center' or 'space-between' */
+        gap: 10px; /* Reduced gap for smaller screens */
+    }
+    .sort-dropdown, .filter-dropdown {
+        flex-grow: 1; /* Allow them to grow and fill space */
+        justify-content: center;
+        border-bottom: none;
+        padding-bottom: 0;
+        max-width: 160px; /* Prevent them from becoming too wide */
+    }
+     #sizeFilter .filter-content {
+        justify-content: center; /* Center size options when they wrap */
+    }
+
+    .product-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+    .log-in-text { display: none; }
+    .main-footer { padding: 25px 15px; }
+}
+
+@media (max-width: 480px) {
+    .main-nav { display: none; } /* Example: hide nav on very small screens */
+    .main-header { padding-bottom: 10px; }
+    .header-bottom-row { display: none; } /* Example: hide bottom row of header */
+    .header-top-row { margin-bottom: 0; }
+
+
+    .product-listing-content {
+        margin-top: 70px; /* Adjust if header is smaller now */
+        padding: 15px 10px;
+    }
+    .category-title { font-size: 24px; }
+    .filters-sort-section {
+        flex-direction: column; /* Stack sort and filter groups */
+        align-items: stretch;   /* Make them full width */
+        gap: 15px;
+    }
+    .sort-dropdown, .filter-dropdown {
+        border-bottom: 1px solid #ccc; /* Add border back if stacked */
+        padding-bottom: 10px;
+        width: 100%;
+        max-width: none; /* Allow full width when stacked */
+        align-items: center; /* Center the label/icon */
+    }
+    .filter-options {
+        flex-direction: column; /* Stack individual filter dropdowns too */
+        gap: 15px;
+        width: 100%;
+    }
+    #sizeFilter .filter-content {
+        justify-content: flex-start; /* Align wrapped sizes to start */
+    }
+
+    .product-grid { grid-template-columns: 1fr; gap: 15px; } /* Single column for products */
+}

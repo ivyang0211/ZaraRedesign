@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZARA - Official Website</title>
+    <link rel="stylesheet" href="css/home.css" />
+    </head>
+<body>
+    <div class="home-page">
+        <header class="main-header">
+            <div class="header-top-row">
+                <img class="zara-logo" src="assets/Zara_Logo.svg" alt="Zara Logo">
+                <div class="utility-nav">
+                    <div class="utility-item">
+                        <img class="icon profile-icon" src="assets/profileIcon.svg" alt="Profile">
+                        <span class="log-in-text">Log in</span>
+                    </div>
+                    <div class="utility-item">
+                        <img class="icon heart-icon" src="assets/heartIcon.svg" alt="Favorites">
+                        <span class="count" id="favCount">0</span>
+                    </div>
+                    <div class="utility-item">
+                        <img class="icon bag-icon" src="assets/bagIcon.svg" alt="Shopping Bag">
+                        <span class="count" id="bagCount">0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="header-bottom-row">
+                <nav class="main-nav">
+                    <a href="#" class="nav-item">NEW ARRIVALS</a>
+                    <a href="#" class="nav-item">WOMAN</a>
+                    <a href="#" class="nav-item">MAN</a>
+                    <a href="#" class="nav-item">KIDS</a>
+                </nav>
+                <div class="search-section">
+                    <input type="text" class="search-input-header" placeholder="" id="headerSearchInput">
+                    <img class="icon search-icon-btn" id="searchIcon" src="assets/searchIcon.svg" alt="Search">
+                </div>
+            </div>
+        </header>
+
+        <div class="search-overlay" id="searchOverlay">
+            <input type="text" class="search-input-overlay" placeholder="SEARCH FOR PRODUCTS">
+            <button class="close-search" id="closeSearch">X</button>
+        </div>
+
+        <section class="hero-section">
+            <img class="hero-image" src="assets/coverIMG.jpg" alt="New Arrivals Cover Image">
+            <div class="hero-content">
+                <h1>ZARA SHOPPING</h1>
+                <a href="product.html" class="shop-now-button">SHOP NOW</a>
+            </div>
+        </section>
+
+        <section class="products-section">
+            <h2 class="section-title">NEW ARRIVALS</h2>
+            <div class="product-grid" id="newArrivalsGrid">
+                <div class="product-card">
+                    <a href="catalogue.html">
+                        <img class="product-thumbnail" src="assets/clothes1.jpg" alt="Flowing Wide-leg Trousers">
+                    </a>
+                    <div class="color-swatches">
+                        <div class="swatch" data-color="black"></div>
+                        <div class="swatch" data-color="white"></div>
+                        <div class="swatch" data-color="green"></div>
+                        <div class="swatch" data-color="blue"></div>
+                    </div>
+                    <div class="product-info-line">
+                        <p class="product-meta product-category">WOMAN</p>
+                        <p class="product-meta product-size">XS-3XL</p>
+                    </div>
+                    <p class="product-meta product-name">Flowing Wide-leg Trousers</p>
+                    <p class="product-meta product-price">Rp749.000</p>
+                    <img class="product-card-heart" src="assets/heartIcon.svg" alt="Add to Favorites">
+                </div>
+                <div class="product-card">
+                    <a href="catalogue.html">
+                        <img class="product-thumbnail" src="assets/clothes2.jpg" alt="Beach Party Dress">
+                    </a>
+                    <div class="color-swatches">
+                        <div class="swatch" data-color="blue"></div>
+                        <div class="swatch" data-color="pink"></div>
+                        <div class="swatch" data-color="yellow"></div>
+                        <div class="swatch" data-color="purple"></div>
+                    </div>
+                    <div class="product-info-line">
+                        <p class="product-meta product-category">WOMAN</p>
+                        <p class="product-meta product-size">XS-3XL</p>
+                    </div>
+                    <p class="product-meta product-name">Beach Party Dress</p>
+                    <p class="product-meta product-price">Rp1.099.900</p>
+                    <img class="product-card-heart" src="assets/heartIcon.svg" alt="Add to Favorites">
+                </div>
+                <div class="product-card">
+                    <a href="catalogue.html">
+                        <img class="product-thumbnail" src="assets/clothes3.jpg" alt="Pleated Trousers">
+                    </a>
+                    <div class="color-swatches">
+                        <div class="swatch" data-color="white"></div>
+                        <div class="swatch" data-color="black"></div>
+                        <div class="swatch" data-color="gray"></div>
+                        <div class="swatch" data-color="beige"></div>
+                    </div>
+                    <div class="product-info-line">
+                        <p class="product-meta product-category">WOMAN</p>
+                        <p class="product-meta product-size">XS-3XL</p>
+                    </div>
+                    <p class="product-meta product-name">Pleated Trousers</p>
+                    <p class="product-meta product-price">Rp799.900</p>
+                    <img class="product-card-heart" src="assets/heartIcon.svg" alt="Add to Favorites">
+                </div>
+                <div class="product-card">
+                    <a href="catalogue.html">
+                        <img class="product-thumbnail" src="assets/clothes4.jpg" alt="A-Line Trousers">
+                    </a>
+                    <div class="color-swatches">
+                        <div class="swatch" data-color="brown"></div>
+                        <div class="swatch" data-color="black"></div>
+                        <div class="swatch" data-color="white"></div>
+                        <div class="swatch" data-color="navy"></div>
+                    </div>
+                    <div class="product-info-line">
+                        <p class="product-meta product-category">WOMAN</p>
+                        <p class="product-meta product-size">XS-3XL</p>
+                    </div>
+                    <p class="product-meta product-name">A-Line Trousers</p>
+                    <p class="product-meta product-price">Rp749.900</p>
+                    <img class="product-card-heart" src="assets/heartIcon.svg" alt="Add to Favorites">
+                </div>
+            </div>
+        </section>
+
+        <section class="products-section">
+            <h2 class="section-title">FAVORITE PRODUCT</h2>
+            <div class="product-grid" id="favoriteProductsGrid">
+                <div class="product-card">
+                    <a href="catalogue.html">
+                        <img class="product-thumbnail" src="assets/clothes5.jpg" alt="Polkadots Pants">
+                    </a>
+                    <div class="color-swatches">
+                        <div class="swatch" data-color="black"></div>
+                        <div class="swatch" data-color="white"></div>
+                        <div class="swatch" data-color="red"></div>
+                        <div class="swatch" data-color="blue"></div>
+                    </div>
+                    <div class="product-info-line">
+                        <p class="product-meta product-category">WOMAN</p>
+                        <p class="product-meta product-size">XS-3XL</p>
+                    </div>
+                    <p class="product-meta product-name">Polkadots Pants</p>
+                    <p class="product-meta product-price">Rp559.900</p>
+                    <img class="product-card-heart" src="assets/heartIcon.svg" alt="Add to Favorites">
+                </div>
+                <div class="product-card">
+                    <a href="catalogue.html">
+                        <img class="product-thumbnail" src="assets/clothes6.jpg" alt="Polkadots Halter Top">
+                    </a>
+                    <div class="color-swatches">
+                        <div class="swatch" data-color="black"></div>
+                        <div class="swatch" data-color="white"></div>
+                        <div class="swatch" data-color="pink"></div>
+                        <div class="swatch" data-color="green"></div>
+                    </div>
+                    <div class="product-info-line">
+                        <p class="product-meta product-category">WOMAN</p>
+                        <p class="product-meta product-size">XS-3XL</p>
+                    </div>
+                    <p class="product-meta product-name">Polkadots Halter Top</p>
+                    <p class="product-meta product-price">Rp350.900</p>
+                    <img class="product-card-heart" src="assets/heartIcon.svg" alt="Add to Favorites">
+                </div>
+                <div class="product-card">
+                    <a href="catalogue.html">
+                        <img class="product-thumbnail" src="assets/clothes7.jpg" alt="Contrast Topstitching Trousers">
+                    </a>
+                    <div class="color-swatches">
+                        <div class="swatch" data-color="gray"></div>
+                        <div class="swatch" data-color="black"></div>
+                        <div class="swatch" data-color="white"></div>
+                        <div class="swatch" data-color="red"></div>
+                    </div>
+                    <div class="product-info-line">
+                        <p class="product-meta product-category">WOMAN</p>
+                        <p class="product-meta product-size">XS-3XL</p>
+                    </div>
+                    <p class="product-meta product-name">Contrast Topstitching Trousers</p>
+                    <p class="product-meta product-price">Rp999.900</p>
+                    <img class="product-card-heart" src="assets/heartIcon.svg" alt="Add to Favorites">
+                </div>
+                <div class="product-card">
+                    <a href="catalogue.html">
+                        <img class="product-thumbnail" src="assets/clothes8.jpg" alt="Stripped Sequin Trousers">
+                    </a>
+                    <div class="color-swatches">
+                        <div class="swatch" data-color="white"></div>
+                        <div class="swatch" data-color="black"></div>
+                        <div class="swatch" data-color="gold"></div>
+                        <div class="swatch" data-color="silver"></div>
+                    </div>
+                    <div class="product-info-line">
+                        <p class="product-meta product-category">WOMAN</p>
+                        <p class="product-meta product-size">XS-3XL</p>
+                    </div>
+                    <p class="product-meta product-name">Stripped Sequin Trousers</p>
+                    <p class="product-meta product-price">Rp999.900</p>
+                    <img class="product-card-heart" src="assets/heartIcon.svg" alt="Add to Favorites">
+                </div>
+                <div class="product-card">
+                    <a href="catalogue.html">
+                        <img class="product-thumbnail" src="assets/clothes9.jpg" alt="Linen Blend Wide-leg Trousers">
+                    </a>
+                    <div class="color-swatches">
+                        <div class="swatch" data-color="beige"></div>
+                        <div class="swatch" data-color="white"></div>
+                        <div class="swatch" data-color="black"></div>
+                        <div class="swatch" data-color="navy"></div>
+                    </div>
+                    <div class="product-info-line">
+                        <p class="product-meta product-category">WOMAN</p>
+                        <p class="product-meta product-size">XS-3XL</p>
+                    </div>
+                    <p class="product-meta product-name">Linen Blend Wide-leg Trousers</p>
+                    <p class="product-meta product-price">Rp799.900</p>
+                    <img class="product-card-heart" src="assets/heartIcon.svg" alt="Add to Favorites">
+                </div>
+            </div>
+        </section>
+
+        <footer class="main-footer">
+            <div class="footer-content">
+                <p>&copy; 2025 ZARA. All rights reserved. | Terms & Conditions | Privacy Policy | Cookies Settings</p>
+                <div class="social-links">
+                    <a href="#" class="social-icon">Facebook</a>
+                    <a href="#" class="social-icon">Instagram</a>
+                    <a href="#" class="social-icon">TikTok</a>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <script src="js/home.js"></script>
+</body>
+</html>

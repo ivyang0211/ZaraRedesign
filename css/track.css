@@ -1,4 +1,4 @@
-/* Ensure this file is linked after home.css if it contains base styles */
+/* Pastikan file ini di-link setelah home.css jika berisi style dasar */
 body {
     margin: 0;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -12,8 +12,8 @@ body {
 }
 
 .track-order-main-content {
-    padding: 20px 80px 40px; /* Reduced top padding */
-    margin-top: 135px; /* Adjust based on fixed header height */
+    padding: 20px 80px 40px; /* Padding atas dikurangi */
+    margin-top: 135px; /* Sesuaikan berdasarkan tinggi header tetap */
 }
 
 .track-order-top-bar {
@@ -31,10 +31,10 @@ body {
     font-size: 16px;
 }
 .back-arrow-icon {
-    width: 24px; /* Adjust size as needed */
+    width: 24px; /* Sesuaikan ukuran jika perlu */
     height: 24px;
-    margin-right: 8px; /* If you add text like "Back" */
-    filter: invert(0%); /* Black */
+    margin-right: 8px; /* Jika Anda menambahkan teks seperti "Kembali" */
+    filter: invert(0%); /* Hitam */
 }
 
 
@@ -47,10 +47,10 @@ body {
 
 .order-progress-bar {
     display: flex;
-    align-items: flex-start; /* Align to top of labels */
+    align-items: flex-start; /* Sejajarkan ke atas label */
     justify-content: space-between;
     margin-bottom: 50px;
-    padding: 0 10px; /* Padding for ends */
+    padding: 0 10px; /* Padding untuk ujung */
 }
 
 .progress-step {
@@ -59,22 +59,42 @@ body {
     align-items: center;
     text-align: center;
     position: relative;
-    flex-basis: 18%; /* Approx 1/5 width for 5 steps */
+    flex-basis: 18%; /* Sekitar 1/5 lebar untuk 5 tahap */
     max-width: 120px;
 }
 
 .progress-circle {
     width: 20px;
     height: 20px;
-    background-color: #ccc; /* Default grey */
+    background-color: #ccc; /* Abu-abu default (mati) */
     border-radius: 50%;
     margin-bottom: 8px;
     border: 2px solid #ccc;
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* Transisi halus */
 }
-.progress-step.completed .progress-circle,
-.progress-step.active .progress-circle {
-    background-color: #000; /* Black for active/completed */
+
+.progress-step.completed .progress-circle {
+    background-color: #000; /* Hitam untuk yang selesai (menyala statis) */
     border-color: #000;
+}
+
+.progress-step.active .progress-circle {
+    background-color: #000; /* Hitam untuk yang aktif */
+    border-color: #000;
+    animation: pulseAnimation 1.5s infinite ease-in-out; /* Animasi menyala */
+}
+
+/* Keyframes untuk animasi menyala (pulse) */
+@keyframes pulseAnimation {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    }
 }
 
 .progress-label {
@@ -82,11 +102,11 @@ body {
     font-weight: bold;
     text-transform: uppercase;
     margin: 0 0 4px 0;
-    color: #888; /* Default greyed out */
+    color: #888; /* Abu-abu default (redup) */
 }
 .progress-step.completed .progress-label,
 .progress-step.active .progress-label {
-    color: #000;
+    color: #000; /* Hitam untuk label aktif/selesai */
 }
 
 
@@ -103,31 +123,26 @@ body {
 .progress-connector {
     flex-grow: 1;
     height: 2px;
-    background-color: #ccc; /* Default grey line */
-    margin: 10px 0 0 0; /* Align with center of circle */
-    max-width: 100px; /* Control connector length between items */
+    background-color: #ccc; /* Garis abu-abu default */
+    margin: 10px 0 0 0; /* Sejajarkan dengan tengah lingkaran */
+    max-width: 100px; /* Kontrol panjang konektor antar item */
 }
-.progress-step + .progress-connector + .progress-step { /* Target connectors between steps */
-    /* margin-left: -5px; 
-    margin-right: -5px;  */
-}
-
 
 .progress-connector.completed,
-.progress-connector.active {
-    background-color: #000; /* Black for active/completed */
+.progress-connector.active { /* Konektor sebelum tahap aktif juga dihitamkan */
+    background-color: #000; /* Hitam untuk yang aktif/selesai */
 }
 
 
 .track-order-details-layout {
     display: flex;
     gap: 40px;
-    flex-wrap: wrap; /* Allow sidebar to stack */
+    flex-wrap: wrap; /* Izinkan sidebar untuk stack */
 }
 
 .ordered-items-summary {
-    flex: 2; /* Takes more space */
-    border-right: 1px solid #e0e0e0; /* Line as per PNG */
+    flex: 2; /* Mengambil lebih banyak ruang */
+    border-right: 1px solid #e0e0e0; /* Garis seperti di PNG */
     padding-right: 40px;
     min-width: 300px;
 }
@@ -140,10 +155,10 @@ body {
 }
 
 .ordered-item-image {
-    width: 80px; /* Smaller image */
+    width: 80px; /* Gambar lebih kecil */
     height: auto;
     object-fit: cover;
-    background-color: #f0f0f0; /* Placeholder background */
+    background-color: #f0f0f0; /* Warna latar placeholder */
 }
 
 .ordered-item-info {
@@ -236,15 +251,14 @@ body {
     margin-top: 10px;
 }
 
-/* Responsive */
+/* Responsif */
 @media (max-width: 1024px) {
     .track-order-main-content {
         padding: 20px 40px 40px;
         margin-top: 120px;
     }
     .order-progress-bar {
-        /* Allow wrapping if needed, but better to scale down */
-        overflow-x: auto; /* Add scroll for very small screens if it overflows */
+        overflow-x: auto; /* Tambah scroll untuk layar sangat kecil jika meluap */
         padding-bottom: 10px;
     }
     .progress-label {
@@ -259,7 +273,7 @@ body {
         border-width: 1px;
     }
     .progress-connector {
-        margin-top: 8px;
+        margin-top: 8px; /* Sesuaikan dengan ukuran lingkaran baru */
     }
     .track-order-details-layout {
         gap: 30px;
@@ -272,7 +286,7 @@ body {
 @media (max-width: 768px) {
     .track-order-main-content {
         padding: 20px 15px 30px;
-        margin-top: 180px; /* If header stacks */
+        margin-top: 180px; /* Jika header bertumpuk */
     }
     .track-order-top-bar {
         flex-direction: column;
@@ -302,13 +316,13 @@ body {
 
 @media (max-width: 480px) {
      .track-order-main-content {
-        margin-top: 70px; /* If header is minimal */
+        margin-top: 70px; /* Jika header minimal */
     }
     .progress-label {
         font-size: 9px;
     }
      .progress-step {
-        max-width: 70px; /* Further reduce for very small screens */
+        max-width: 70px; /* Kurangi lagi untuk layar sangat kecil */
     }
     .ordered-item-image {
         width: 60px;

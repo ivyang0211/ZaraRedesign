@@ -63,6 +63,11 @@ a {
     cursor: pointer;
 }
 
+.utility-item > a {
+    display: inline-flex; /* Membuat <a> menjadi flex container */
+    align-items: center;  /* Menyelaraskan ikon di tengah secara vertikal di dalam <a> */
+}
+
 .icon {
     height: 32px; /* Made all utility icons bigger */
     width: 32px;

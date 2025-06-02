@@ -13,11 +13,11 @@
                 <img class="zara-logo" src="assets/Zara_Logo.svg" alt="Zara Logo" onclick="window.location.href='home.html'">
                 <div class="utility-nav">
                     <div class="utility-item">
-                        <img class="icon profile-icon" src="assets/profileIcon.svg" alt="Profile">
-                        <span class="log-in-text">Log in</span>
+                        <img class="icon profile-icon" src="assets/profileIcon.svg" alt="Profile" >
+                        <span class="log-in-text">Log In</span>
                     </div>
                     <div class="utility-item">
-                        <img class="icon heart-icon" src="assets/heartIcon.svg" alt="Favorites">
+                        <img class="icon heart-icon" src="assets/heartIcon.svg" alt="Favorites" >
                         <span class="count" id="favCount">0</span>
                     </div>
                     <div class="utility-item">
@@ -28,9 +28,9 @@
             <div class="header-bottom-row">
                 <nav class="main-nav">
                     <a href="home.html" class="nav-item">NEW ARRIVALS</a>
-                    <a href="#" class="nav-item">WOMAN</a>
-                    <a href="#" class="nav-item">MAN</a>
-                    <a href="#" class="nav-item">KIDS</a>
+                    <a href="product.html" class="nav-item">WOMAN</a>
+                    <a href="product-men.html" class="nav-item">MAN</a>
+                    <a href="product-kids.html" class="nav-item">KIDS</a>
                 </nav>
                 <div class="search-section">
                     <input type="text" class="search-input-header" placeholder="" id="headerSearchInput">
@@ -77,17 +77,16 @@
 
                             <div class="address-display-container">
                                 <div class="address-info">
-                                    <p class="address-name-phone">John Doe (+62) XXX XXXX XXXX</p>
+                                    <p class="address-name-phone">Evelyn (+62) 813 9586 2344</p>
                                     <p class="address-lines">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                        742 Evergreen Terrace, Apartment 2A, Westwood District, Los Angeles, California 90001, United States, Phone: +1 (310) 555-0198
                                     </p>
                                 </div>
                                 <button class="edit-address-btn">EDIT</button>
                             </div>
 
                             <div class="step-actions">
-                                <button class="btn-primary continue-payment-btn">CONTINUE TO PAYMENT</button>
+                                <button class="btn-primary continue-payment-btn" onclick="window.location.href='track.html'">CONTINUE TO PAYMENT</button>
                                 <button class="btn-secondary register-address-btn">REGISTER A NEW ADDRESS</button>
                             </div>
                         </div>
@@ -109,23 +108,23 @@
                 </section>
 
                 <aside class="order-summary-section">
-                    <h2 class="summary-title">ORDER SUMMARY | <span id="summaryItemCount">X</span> ITEM(S)</h2>
+                    <h2 class="summary-title">ORDER SUMMARY | <span id="summaryItemCount">5</span> ITEM(S)</h2>
                     <div class="summary-row">
                         <span>Item(s) subtotal</span>
-                        <span>RpX.XXX.XXX</span>
+                        <span>Rp2.750.000</span>
                     </div>
                      <div class="summary-row">
                         <span>SUBTOTAL</span>
-                        <span>RpX.XXX.XXX</span>
+                        <span>Rp2.750.000</span>
                     </div>
                     <div class="summary-row">
                         <span>VAT included</span>
-                        <span>RpX.XXX.XXX</span>
+                        <span>Rp300.000</span>
                     </div>
                     <hr class="summary-divider">
                     <div class="summary-row total">
                         <span>ORDER TOTAL</span>
-                        <span>RpX.XXX.XXX</span>
+                        <span>Rp3.050.000</span>
                     </div>
                 </aside>
             </div>
@@ -142,5 +141,5 @@
             </div>
         </footer>
     </div>
-    <script src="js/home.js"></script> </body>
+    <script src="js/checkout.js"></script> </body>
 </html>

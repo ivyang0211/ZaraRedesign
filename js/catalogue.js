@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // In a real app, you'd send this data to a backend or update a cart object
     });
 
-    // Heart Icon (Add to Favorites) on Product Page
+   // Heart Icon (Add to Favorites) on Product Page
     const productPageHeartIcon = document.querySelector('.heart-product-page');
     if (productPageHeartIcon) {
         productPageHeartIcon.addEventListener('click', () => {

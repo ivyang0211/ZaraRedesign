@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <title>ZARA - Checkout</title>
+    <link rel="stylesheet" href="css/home.css" /> <link rel="stylesheet" href="css/checkout.css" />
+</head>
+<body>
+    <div class="checkout-page-container">
+        <header class="main-header">
+            <div class="header-top-row">
+                <img class="zara-logo" src="assets/Zara_Logo.svg" alt="Zara Logo" onclick="window.location.href='home.html'">
+                <div class="utility-nav">
+                    <div class="utility-item">
+                        <img class="icon profile-icon" src="assets/profileIcon.svg" alt="Profile">
+                        <span class="log-in-text">Log in</span>
+                    </div>
+                    <div class="utility-item">
+                        <img class="icon heart-icon" src="assets/heartIcon.svg" alt="Favorites">
+                        <span class="count" id="favCount">0</span>
+                    </div>
+                    <div class="utility-item">
+                        <img class="icon bag-icon" src="assets/bagIcon.svg" alt="Shopping Bag">
+                        <span class="count" id="bagCount">2</span> </div>
+                </div>
+            </div>
+            <div class="header-bottom-row">
+                <nav class="main-nav">
+                    <a href="home.html" class="nav-item">NEW ARRIVALS</a>
+                    <a href="#" class="nav-item">WOMAN</a>
+                    <a href="#" class="nav-item">MAN</a>
+                    <a href="#" class="nav-item">KIDS</a>
+                </nav>
+                <div class="search-section">
+                    <input type="text" class="search-input-header" placeholder="" id="headerSearchInput">
+                    <img class="icon search-icon-btn" id="searchIcon" src="assets/searchIcon.svg" alt="Search">
+                </div>
+            </div>
+        </header>
+
+        <div class="search-overlay" id="searchOverlay">
+            <input type="text" class="search-input-overlay" placeholder="SEARCH FOR PRODUCTS">
+            <button class="close-search" id="closeSearch">X</button>
+        </div>
+
+        <main class="checkout-main-content">
+            <div class="checkout-page-title-container">
+                <h1 class="checkout-page-title">CHECKOUT</h1>
+            </div>
+
+            <div class="checkout-layout">
+                <section class="checkout-steps-section">
+                    <div class="checkout-step active" id="deliveryOptionStep">
+                        <h2 class="step-title">1. DELIVERY OPTION</h2>
+                        <div class="step-content">
+                            <p class="alteration-note">Order With Alteration: +1 day from the normal delivery lead time.</p>
+                            
+                            <div class="delivery-choices">
+                                <div class="delivery-choice">
+                                    <input type="radio" id="shipToAddress" name="deliveryOption" value="ship" checked>
+                                    <label for="shipToAddress">Ship To Address</label>
+                                    <div class="delivery-details">
+                                        Shipping: TBD<br>
+                                        JABODETABEK / NEXTDAY, Java Island (outside Jabodetabek): 1 - 6 days, Bali: 1 - 7 days, Nusa Tenggara: 2 - 9 days, Sumatera: 2 - 7 days, Sulawesi: 3 - 7 days, Kalimantan: 3 - 7 days, Maluku: 5 - 10 days, Papua: 5 - 10 days
+                                    </div>
+                                </div>
+                                <div class="delivery-choice">
+                                    <input type="radio" id="storePickUp" name="deliveryOption" value="pickup">
+                                    <label for="storePickUp">Store Pick Up</label>
+                                    <div class="delivery-details">
+                                        Store will inform customers via email once the order is ready to pick up. If the order is not picked up after 7 days, the order will be returned to Zara.<br>
+                                        JABODETABEK: 1 - 2 days, Java Island: 1 - 6 days, Nusa Tenggara: 1 - 7 days, Sumatera: 1 - 7 days, Kalimantan: 1 - 7 days, Sulawesi: 1 - 7 days
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="address-display-container">
+                                <div class="address-info">
+                                    <p class="address-name-phone">John Doe (+62) XXX XXXX XXXX</p>
+                                    <p class="address-lines">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                    </p>
+                                </div>
+                                <button class="edit-address-btn">EDIT</button>
+                            </div>
+
+                            <div class="step-actions">
+                                <button class="btn-primary continue-payment-btn">CONTINUE TO PAYMENT</button>
+                                <button class="btn-secondary register-address-btn">REGISTER A NEW ADDRESS</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checkout-step" id="paymentOptionStep">
+                        <h2 class="step-title">2. PAYMENT OPTION</h2>
+                        <div class="step-content" style="display: none;">
+                            <p>Payment details will be available here.</p>
+                        </div>
+                    </div>
+
+                    <div class="checkout-step" id="orderFinalSummaryStep">
+                        <h2 class="step-title">3. ORDER SUMMARY</h2>
+                        <div class="step-content" style="display: none;">
+                            <p>Final order review will be available here.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <aside class="order-summary-section">
+                    <h2 class="summary-title">ORDER SUMMARY | <span id="summaryItemCount">X</span> ITEM(S)</h2>
+                    <div class="summary-row">
+                        <span>Item(s) subtotal</span>
+                        <span>RpX.XXX.XXX</span>
+                    </div>
+                     <div class="summary-row">
+                        <span>SUBTOTAL</span>
+                        <span>RpX.XXX.XXX</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>VAT included</span>
+                        <span>RpX.XXX.XXX</span>
+                    </div>
+                    <hr class="summary-divider">
+                    <div class="summary-row total">
+                        <span>ORDER TOTAL</span>
+                        <span>RpX.XXX.XXX</span>
+                    </div>
+                </aside>
+            </div>
+        </main>
+
+        <footer class="main-footer">
+            <div class="footer-content">
+                <p>&copy; 2025 ZARA. All rights reserved. | Terms & Conditions | Privacy Policy | Cookies Settings</p>
+                <div class="social-links">
+                    <a href="#" class="social-icon">Facebook</a>
+                    <a href="#" class="social-icon">Instagram</a>
+                    <a href="#" class="social-icon">TikTok</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="js/home.js"></script> </body>
+</html>

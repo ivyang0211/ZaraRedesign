@@ -1,0 +1,325 @@
+/* Ensure this file is linked after home.css if it contains base styles */
+body {
+    margin: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.track-order-page-container {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.track-order-main-content {
+    padding: 20px 80px 40px; /* Reduced top padding */
+    margin-top: 135px; /* Adjust based on fixed header height */
+}
+
+.track-order-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    color: #000;
+    font-size: 16px;
+}
+.back-arrow-icon {
+    width: 24px; /* Adjust size as needed */
+    height: 24px;
+    margin-right: 8px; /* If you add text like "Back" */
+    filter: invert(0%); /* Black */
+}
+
+
+.order-status-info {
+    font-size: 14px;
+    font-weight: normal;
+    color: #555;
+    text-transform: uppercase;
+}
+
+.order-progress-bar {
+    display: flex;
+    align-items: flex-start; /* Align to top of labels */
+    justify-content: space-between;
+    margin-bottom: 50px;
+    padding: 0 10px; /* Padding for ends */
+}
+
+.progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    flex-basis: 18%; /* Approx 1/5 width for 5 steps */
+    max-width: 120px;
+}
+
+.progress-circle {
+    width: 20px;
+    height: 20px;
+    background-color: #ccc; /* Default grey */
+    border-radius: 50%;
+    margin-bottom: 8px;
+    border: 2px solid #ccc;
+}
+.progress-step.completed .progress-circle,
+.progress-step.active .progress-circle {
+    background-color: #000; /* Black for active/completed */
+    border-color: #000;
+}
+
+.progress-label {
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0 0 4px 0;
+    color: #888; /* Default greyed out */
+}
+.progress-step.completed .progress-label,
+.progress-step.active .progress-label {
+    color: #000;
+}
+
+
+.progress-timestamp {
+    font-size: 11px;
+    color: #888;
+    margin: 0;
+}
+.progress-step.completed .progress-timestamp {
+    color: #555;
+}
+
+
+.progress-connector {
+    flex-grow: 1;
+    height: 2px;
+    background-color: #ccc; /* Default grey line */
+    margin: 10px 0 0 0; /* Align with center of circle */
+    max-width: 100px; /* Control connector length between items */
+}
+.progress-step + .progress-connector + .progress-step { /* Target connectors between steps */
+    /* margin-left: -5px; 
+    margin-right: -5px;  */
+}
+
+
+.progress-connector.completed,
+.progress-connector.active {
+    background-color: #000; /* Black for active/completed */
+}
+
+
+.track-order-details-layout {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap; /* Allow sidebar to stack */
+}
+
+.ordered-items-summary {
+    flex: 2; /* Takes more space */
+    border-right: 1px solid #e0e0e0; /* Line as per PNG */
+    padding-right: 40px;
+    min-width: 300px;
+}
+
+.ordered-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.ordered-item-image {
+    width: 80px; /* Smaller image */
+    height: auto;
+    object-fit: cover;
+    background-color: #f0f0f0; /* Placeholder background */
+}
+
+.ordered-item-info {
+    flex-grow: 1;
+}
+
+.item-name {
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0 0 5px 0;
+}
+
+.item-meta {
+    font-size: 13px;
+    color: #555;
+    margin: 2px 0;
+    text-transform: uppercase;
+}
+
+.item-price-total {
+    font-size: 15px;
+    font-weight: bold;
+    text-align: right;
+}
+
+.item-divider {
+    border: 0;
+    border-top: 1px solid #e0e0e0;
+    margin: 15px 0;
+}
+.item-divider.thick-divider {
+    border-top-width: 2px;
+    border-top-color: #000;
+    margin: 25px 0;
+}
+
+
+.order-totals-detailed {
+    margin-top: 20px;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #333;
+}
+.total-row span:first-child {
+    text-transform: uppercase;
+}
+
+.total-row.grand-total {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    margin-top: 10px;
+}
+
+.delivery-address-panel {
+    flex: 1;
+    background-color: #f9f9f9;
+    padding: 25px;
+    border: 1px solid #e0e0e0;
+    height: fit-content;
+    min-width: 280px;
+}
+
+.panel-title {
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0 0 15px 0;
+}
+
+.address-name-phone {
+    font-size: 14px;
+    margin: 0 0 5px 0;
+    color: #333;
+}
+.address-name-phone:first-of-type {
+    font-weight: bold;
+}
+
+
+.address-full {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+    margin-top: 10px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .track-order-main-content {
+        padding: 20px 40px 40px;
+        margin-top: 120px;
+    }
+    .order-progress-bar {
+        /* Allow wrapping if needed, but better to scale down */
+        overflow-x: auto; /* Add scroll for very small screens if it overflows */
+        padding-bottom: 10px;
+    }
+    .progress-label {
+        font-size: 10px;
+    }
+    .progress-timestamp {
+        font-size: 9px;
+    }
+    .progress-circle {
+        width: 16px;
+        height: 16px;
+        border-width: 1px;
+    }
+    .progress-connector {
+        margin-top: 8px;
+    }
+    .track-order-details-layout {
+        gap: 30px;
+    }
+    .ordered-items-summary {
+        padding-right: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .track-order-main-content {
+        padding: 20px 15px 30px;
+        margin-top: 180px; /* If header stacks */
+    }
+    .track-order-top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+     .order-status-info {
+        font-size: 13px;
+    }
+    .order-progress-bar {
+        margin-bottom: 30px;
+    }
+    .track-order-details-layout {
+        flex-direction: column;
+    }
+    .ordered-items-summary {
+        border-right: none;
+        padding-right: 0;
+        border-bottom: 1px solid #e0e0e0;
+        padding-bottom: 20px;
+    }
+    .delivery-address-panel {
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+     .track-order-main-content {
+        margin-top: 70px; /* If header is minimal */
+    }
+    .progress-label {
+        font-size: 9px;
+    }
+     .progress-step {
+        max-width: 70px; /* Further reduce for very small screens */
+    }
+    .ordered-item-image {
+        width: 60px;
+    }
+    .item-name {
+        font-size: 14px;
+    }
+    .item-meta, .item-price-total, .total-row {
+        font-size: 12px;
+    }
+     .total-row.grand-total {
+        font-size: 14px;
+    }
+}

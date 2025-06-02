@@ -1,11 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <title>ZARA - Track Order</title>
+    <link rel="stylesheet" href="css/home.css" /> <link rel="stylesheet" href="css/track.css" />
 </head>
 <body>
-    
-</body>
+    <div class="track-order-page-container">
+        <header class="main-header">
+            <div class="header-top-row">
+                <img class="zara-logo" src="assets/Zara_Logo.svg" alt="Zara Logo" onclick="window.location.href='home.html'">
+                <div class="utility-nav">
+                    <div class="utility-item">
+                        <img class="icon profile-icon" src="assets/profileIcon.svg" alt="Profile">
+                        <span class="log-in-text">Log in</span>
+                    </div>
+                    <div class="utility-item">
+                        <img class="icon heart-icon" src="assets/heartIcon.svg" alt="Favorites">
+                        <span class="count" id="favCount">0</span>
+                    </div>
+                    <div class="utility-item">
+                        <img class="icon bag-icon" src="assets/bagIcon.svg" alt="Shopping Bag">
+                        <span class="count" id="bagCount">0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="header-bottom-row">
+                <nav class="main-nav">
+                    <a href="home.html" class="nav-item">NEW ARRIVALS</a>
+                    <a href="#" class="nav-item">WOMAN</a>
+                    <a href="#" class="nav-item">MAN</a>
+                    <a href="#" class="nav-item">KIDS</a>
+                </nav>
+                <div class="search-section">
+                    <input type="text" class="search-input-header" placeholder="" id="headerSearchInput">
+                    <img class="icon search-icon-btn" id="searchIcon" src="assets/searchIcon.svg" alt="Search">
+                </div>
+            </div>
+        </header>
+
+        <div class="search-overlay" id="searchOverlay">
+            <input type="text" class="search-input-overlay" placeholder="SEARCH FOR PRODUCTS">
+            <button class="close-search" id="closeSearch">X</button>
+        </div>
+
+        <main class="track-order-main-content">
+            <div class="track-order-top-bar">
+                <a href="#" class="back-link" aria-label="Go back">
+                    <img src="assets/arrow-left-icon.svg" alt="Back Arrow" class="back-arrow-icon"> </a>
+                <div class="order-status-info">
+                    ORDER NUMBER: XXXXXXXXXXXX | STATUS
+                </div>
+            </div>
+
+            <section class="order-progress-bar">
+                <div class="progress-step completed">
+                    <div class="progress-circle"></div>
+                    <p class="progress-label">ORDER PLACED</p>
+                    <p class="progress-timestamp">Time Stamp</p>
+                </div>
+                <div class="progress-connector completed"></div>
+                <div class="progress-step completed">
+                    <div class="progress-circle"></div>
+                    <p class="progress-label">ORDER PACKED</p>
+                    <p class="progress-timestamp">Time Stamp</p>
+                </div>
+                <div class="progress-connector active"></div>
+                <div class="progress-step active">
+                    <div class="progress-circle"></div>
+                    <p class="progress-label">IN TRANSIT</p>
+                    <p class="progress-timestamp">Time Stamp</p>
+                </div>
+                <div class="progress-connector"></div>
+                <div class="progress-step">
+                    <div class="progress-circle"></div>
+                    <p class="progress-label">OUT OF DELIVERY</p>
+                    <p class="progress-timestamp">Time Stamp</p>
+                </div>
+                <div class="progress-connector"></div>
+                <div class="progress-step">
+                    <div class="progress-circle"></div>
+                    <p class="progress-label">DELIVERED</p>
+                    <p class="progress-timestamp">Time Stamp</p>
+                </div>
+            </section>
+
+            <div class="track-order-details-layout">
+                <section class="ordered-items-summary">
+                    <div class="ordered-item">
+                        <img src="assets/clothes1.jpg" alt="Product Image" class="ordered-item-image">
+                        <div class="ordered-item-info">
+                            <p class="item-name">Lorem Ipsum Dolor</p>
+                            <p class="item-meta">COLOUR: XXXXXXX</p>
+                            <p class="item-meta">SIZE: XXX</p>
+                            <p class="item-meta">x1</p>
+                        </div>
+                        <p class="item-price-total">RpXXX.XXX.XXX</p>
+                    </div>
+                    <hr class="item-divider">
+                     <div class="ordered-item">
+                        <img src="assets/clothes2.jpg" alt="Product Image" class="ordered-item-image">
+                        <div class="ordered-item-info">
+                            <p class="item-name">Lorem Ipsum Dolor</p>
+                            <p class="item-meta">COLOUR: XXXXXXX</p>
+                            <p class="item-meta">SIZE: XXX</p>
+                            <p class="item-meta">x1</p>
+                        </div>
+                        <p class="item-price-total">RpXXX.XXX.XXX</p>
+                    </div>
+                    <hr class="item-divider thick-divider">
+
+                    <div class="order-totals-detailed">
+                        <div class="total-row">
+                            <span>Item(s) subtotal</span>
+                            <span>RpX.XXX.XXX</span>
+                        </div>
+                        <div class="total-row">
+                            <span>Delivery subtotal</span>
+                            <span>RpX.XXX.XXX</span>
+                        </div>
+                        <hr class="item-divider">
+                        <div class="total-row">
+                            <span>SUBTOTAL</span>
+                            <span>RpX.XXX.XXX</span>
+                        </div>
+                        <div class="total-row">
+                            <span>VAT included</span>
+                            <span>RpX.XXX.XXX</span>
+                        </div>
+                        <hr class="item-divider">
+                        <div class="total-row grand-total">
+                            <span>ORDER TOTAL</span>
+                            <span>RpX.XXX.XXX</span>
+                        </div>
+                    </div>
+                </section>
+
+                <aside class="delivery-address-panel">
+                    <h2 class="panel-title">DELIVERY ADDRESS</h2>
+                    <p class="address-name-phone">John Doe</p>
+                    <p class="address-name-phone">(+62) XXX XXXX XXXX</p>
+                    <p class="address-full">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </p>
+                </aside>
+            </div>
+        </main>
+
+        <footer class="main-footer">
+            <div class="footer-content">
+                <p>&copy; 2025 ZARA. All rights reserved. | Terms & Conditions | Privacy Policy | Cookies Settings</p>
+                <div class="social-links">
+                    <a href="#" class="social-icon">Facebook</a>
+                    <a href="#" class="social-icon">Instagram</a>
+                    <a href="#" class="social-icon">TikTok</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="js/home.js"></script> </body>
 </html>

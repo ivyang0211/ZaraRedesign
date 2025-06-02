@@ -1,0 +1,361 @@
+/* Pastikan file ini di-link setelah home.css dan catalogue.css jika mereka berisi style dasar */
+
+body {
+    margin: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.cart-page-container {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.cart-main-content {
+    padding: 40px 80px;
+    margin-top: 135px; /* Sesuaikan berdasarkan tinggi header tetap */
+}
+
+.cart-page-title-container {
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+.cart-page-title {
+    font-size: 38px; /* Konsisten dengan .section-title */
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+.cart-layout {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap; /* Izinkan sidebar untuk stack di layar kecil */
+}
+
+.cart-items-section {
+    flex: 2; /* Mengambil lebih banyak ruang */
+    min-width: 300px; /* Lebar minimum sebelum wrapping */
+}
+
+.cart-item {
+    display: flex;
+    align-items: flex-start; /* Sejajarkan item ke atas */
+    gap: 20px; /* Jarak antara gambar dan detail */
+    padding-bottom: 20px;
+    position: relative;
+}
+
+.cart-item-image {
+    width: 120px; /* Ukuran gambar produk di keranjang */
+    height: auto;
+    object-fit: cover;
+    background-color: #f0f0f0; /* Warna latar placeholder */
+}
+
+.cart-item-details {
+    flex-grow: 1; /* Mengambil sisa ruang */
+    display: flex;
+    flex-direction: column; /* Susun info dan kontrol secara vertikal */
+}
+
+.cart-item-info {
+    margin-bottom: 15px; /* Jarak sebelum baris kontrol kuantitas/subtotal */
+}
+
+.cart-item-name {
+    font-size: 18px;
+    font-weight: normal; /* Sesuai gambar, tidak bold */
+    margin: 0 0 5px 0;
+    text-transform: uppercase; /* Sesuai gambar */
+}
+
+.cart-item-meta {
+    font-size: 14px;
+    color: #555;
+    margin: 3px 0;
+    text-transform: uppercase;
+}
+
+.cart-item-unit-price { /* Harga satuan produk */
+    font-size: 16px; /* Sesuaikan dengan gambar */
+    font-weight: normal; /* Sesuai gambar, tidak bold */
+    color: #000;
+    margin-top: 8px;
+}
+
+.cart-item-controls { /* Baris untuk kuantitas dan subtotal item */
+    display: flex;
+    justify-content: space-between; /* Kuantitas kiri, subtotal kanan */
+    align-items: center; /* Sejajarkan secara vertikal di tengah */
+    margin-top: 10px; /* Jarak dari info produk di atasnya */
+    width: 100%; /* Ambil lebar penuh dari .cart-item-details */
+}
+
+.cart-item-quantity-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Label dan selektor rata kiri */
+}
+
+.quantity-label, .subtotal-label {
+    font-size: 12px;
+    color: #555; /* Warna abu-abu untuk label */
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+/* Menggunakan kembali style quantity selector dari catalogue.css jika terhubung dan kelasnya cocok */
+/* Jika tidak, definisikan .quantity-selector, .qty-btn, .qty-display di sini */
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    border: 1px solid #000;
+    width: 100px; /* Lebar lebih kecil untuk di keranjang */
+}
+
+.qty-btn {
+    background: none;
+    border: none;
+    font-size: 18px; /* Ukuran font lebih kecil */
+    padding: 5px 8px;
+    cursor: pointer;
+    color: #000;
+}
+
+.qty-display {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px 0;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+}
+
+.cart-item-subtotal-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Label dan nilai subtotal rata kanan */
+}
+
+.cart-item-subtotal-value { /* Subtotal per item */
+    font-size: 16px;
+    font-weight: bold; /* Subtotal biasanya bold */
+    color: #000;
+    margin: 0;
+}
+
+.remove-item-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #888;
+    cursor: pointer;
+    padding: 0 5px;
+    line-height: 1;
+    position: absolute; /* Posisikan relatif terhadap .cart-item */
+    top: 0px; /* Dekat ke atas item */
+    right: 0px; /* Dekat ke kanan item */
+}
+.remove-item-btn:hover {
+    color: #000;
+}
+
+.cart-item-divider {
+    border: 0;
+    border-top: 1px solid #e0e0e0;
+    margin: 0 0 20px 0; /* Margin untuk di bawah item */
+}
+
+
+/* Order Summary Section */
+.order-summary-section {
+    flex: 1;
+    background-color: #f9f9f9;
+    padding: 25px;
+    border: 1px solid #e0e0e0;
+    height: fit-content; /* Agar tidak membentang penuh ke bawah */
+    min-width: 280px;
+}
+
+.summary-title {
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0 0 20px 0;
+    text-align: center;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.summary-row.total {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 15px;
+    padding-top: 15px;
+}
+.summary-divider {
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 10px 0 15px 0;
+}
+
+
+.checkout-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #000;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease;
+}
+.checkout-btn:hover {
+    background-color: #333;
+}
+
+.continue-shopping-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #fff;
+    color: #000;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 1px solid #000;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.continue-shopping-btn:hover {
+    background-color: #f0f0f0;
+}
+
+/* Similar Products Section - Style dari catalogue.css seharusnya berlaku */
+.similar-products-section {
+    margin-top: 60px; /* Jarak di atas produk serupa */
+}
+
+
+/* Penyesuaian responsif untuk halaman keranjang */
+@media (max-width: 1024px) {
+    .cart-main-content {
+        padding: 30px 40px;
+        margin-top: 120px;
+    }
+    .cart-page-title {
+        font-size: 34px;
+    }
+    .cart-layout {
+        gap: 30px;
+    }
+     .cart-item-image {
+        width: 100px;
+    }
+    .cart-item-name {
+        font-size: 16px;
+    }
+    .cart-item-meta, .cart-item-unit-price {
+        font-size: 13px;
+    }
+    .cart-item-subtotal-value {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .cart-main-content {
+        padding: 20px 15px;
+        margin-top: 180px; /* Jika header bertumpuk */
+    }
+    .cart-page-title-container {
+        margin-bottom: 20px;
+    }
+    .cart-page-title {
+        font-size: 28px;
+        text-align: center;
+    }
+    .cart-layout {
+        flex-direction: column; /* Tumpuk item dan ringkasan */
+    }
+    .cart-item {
+        /* flex-wrap: wrap; */ /* Biarkan default flex-start untuk .cart-item-details */
+        gap: 15px;
+    }
+    .cart-item-image {
+        width: 80px;
+    }
+    /* .cart-item-details akan mengambil sisa ruang */
+    
+    .cart-item-controls {
+        flex-wrap: wrap; /* Izinkan kuantitas dan subtotal untuk wrap jika perlu */
+        gap: 10px; /* Jarak jika wrap */
+    }
+    .cart-item-quantity-section, .cart-item-subtotal-section {
+        min-width: 120px; /* Pastikan ada ruang minimal */
+    }
+    .cart-item-subtotal-section {
+        margin-left: auto; /* Dorong ke kanan jika ada ruang */
+    }
+
+
+    .remove-item-btn {
+        top: 5px;
+        right: 5px;
+        font-size: 20px;
+    }
+    .order-summary-section {
+        margin-top: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cart-main-content {
+        margin-top: 70px; /* Jika header minimal */
+    }
+    .cart-page-title {
+        font-size: 24px;
+    }
+    .cart-item-image {
+        width: 100%; /* Lebar penuh untuk gambar */
+        margin-bottom: 10px;
+    }
+    .cart-item {
+        flex-direction: column; /* Tumpuk gambar dan detail item */
+        align-items: center; /* Pusatkan jika bertumpuk */
+    }
+    .cart-item-details {
+        width: 100%; /* Ambil lebar penuh */
+    }
+    .cart-item-info {
+        text-align: center; /* Pusatkan info produk */
+    }
+    .cart-item-controls {
+        flex-direction: column; /* Tumpuk kuantitas dan subtotal */
+        align-items: center; /* Pusatkan */
+        gap: 15px;
+    }
+    .cart-item-quantity-section, .cart-item-subtotal-section {
+        align-items: center; /* Pusatkan kontennya */
+        width: 100%;
+    }
+     .cart-item-subtotal-section {
+        margin-left: 0; /* Hapus margin auto */
+    }
+
+    .quantity-selector {
+        margin: 0 auto 10px auto;
+    }
+}

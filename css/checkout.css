@@ -1,0 +1,297 @@
+/* Ensure this file is linked after home.css if it contains base styles */
+
+body {
+    margin: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.checkout-page-container {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.checkout-main-content {
+    padding: 40px 80px;
+    margin-top: 135px; /* Adjust based on fixed header height */
+}
+
+.checkout-page-title-container {
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.checkout-page-title {
+    font-size: 38px; /* Consistent with .section-title */
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+.checkout-layout {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap; /* Allow sidebar to stack on smaller screens */
+}
+
+.checkout-steps-section {
+    flex: 2; /* Takes more space */
+    min-width: 300px;
+}
+
+.checkout-step {
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 20px;
+}
+
+.checkout-step .step-title {
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 15px 20px;
+    margin: 0;
+    background-color: #f0f0f0;
+    border-bottom: 1px solid #e0e0e0;
+    cursor: pointer; /* If steps are collapsible */
+}
+
+.checkout-step.active .step-title {
+    background-color: #e0e0e0; /* Slightly darker for active step */
+}
+
+.checkout-step .step-content {
+    padding: 20px;
+}
+
+.checkout-step:not(.active) .step-content {
+    /* display: none; */ /* Keep visible as per PNG for inactive steps */
+}
+.checkout-step:not(.active) .step-title {
+     background-color: #F5F5F5; /* Greyed out for inactive */
+     color: #888;
+}
+
+
+.alteration-note {
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px dashed #ccc;
+}
+
+.delivery-choices {
+    margin-bottom: 25px;
+}
+
+.delivery-choice {
+    margin-bottom: 15px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
+
+.delivery-choice input[type="radio"] {
+    margin-right: 10px;
+    vertical-align: middle;
+    accent-color: #000;
+}
+
+.delivery-choice label {
+    font-size: 16px;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.delivery-details {
+    font-size: 13px;
+    color: #555;
+    margin-top: 8px;
+    margin-left: 28px; /* Align with label text */
+    line-height: 1.5;
+}
+
+.address-display-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 15px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    margin-bottom: 25px;
+}
+
+.address-info .address-name-phone {
+    font-size: 15px;
+    font-weight: bold;
+    margin: 0 0 5px 0;
+}
+
+.address-info .address-lines {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.edit-address-btn {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #000;
+    padding: 8px 15px;
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+.edit-address-btn:hover {
+    background-color: #f0f0f0;
+}
+
+.step-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn-primary.continue-payment-btn {
+    flex-grow: 1;
+    padding: 15px;
+    background-color: #000;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.btn-primary.continue-payment-btn:hover {
+    background-color: #333;
+}
+
+.btn-secondary.register-address-btn {
+    flex-grow: 1;
+    padding: 15px;
+    background-color: #fff;
+    color: #000;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 1px solid #000;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.btn-secondary.register-address-btn:hover {
+    background-color: #f0f0f0;
+}
+
+
+/* Order Summary Section (reused from cart.css with minor adjustments if needed) */
+.order-summary-section {
+    flex: 1;
+    background-color: #f9f9f9;
+    padding: 25px;
+    border: 1px solid #e0e0e0;
+    height: fit-content;
+    min-width: 280px;
+}
+
+.summary-title {
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0 0 20px 0;
+    text-align: center;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.summary-row.total {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 15px;
+    padding-top: 15px;
+}
+.summary-divider {
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 10px 0 15px 0;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .checkout-main-content {
+        padding: 30px 40px;
+        margin-top: 120px;
+    }
+    .checkout-page-title {
+        font-size: 34px;
+    }
+    .checkout-layout {
+        gap: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .checkout-main-content {
+        padding: 20px 15px;
+        margin-top: 180px; /* If header stacks */
+    }
+     .checkout-page-title-container {
+        margin-bottom: 20px;
+    }
+    .checkout-page-title {
+        font-size: 28px;
+        text-align: center;
+    }
+    .checkout-layout {
+        flex-direction: column; /* Stack steps and summary */
+    }
+    .order-summary-section {
+        margin-top: 30px;
+    }
+    .step-actions {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .checkout-main-content {
+        margin-top: 70px; /* If header is minimal */
+    }
+    .checkout-page-title {
+        font-size: 24px;
+    }
+    .checkout-step .step-title {
+        font-size: 16px;
+    }
+    .checkout-step .step-content {
+        padding: 15px;
+    }
+     .delivery-choice label {
+        font-size: 15px;
+    }
+    .delivery-details {
+        font-size: 12px;
+    }
+    .address-display-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .edit-address-btn {
+        width: 100%;
+        text-align: center;
+    }
+}

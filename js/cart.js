@@ -172,4 +172,142 @@ document.addEventListener('DOMContentLoaded', function() {
     // Panggil fungsi inisialisasi utama
     initializeCartInteractions();
     checkEmptyCart(); // Periksa saat load juga
+    const CART_KEY = 'cart';
+
+function getCart() {
+    return JSON.parse(localStorage.getItem(CART_KEY)) || [];
+}
+
+function saveCart(cart) {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+}
+
+function addToCart(product) {
+    const cart = getCart();
+    const existing = cart.find(item =>
+        item.id === product.id &&
+        item.size === product.size &&
+        item.color === product.color
+    );
+    if (existing) {
+        existing.quantity += product.quantity;
+    } else {
+        cart.push(product);
+    }
+    saveCart(cart);
+}
+
+function updateCartItem(id, size, color, quantity) {
+    const cart = getCart();
+    const item = cart.find(i => i.id === id && i.size === size && i.color === color);
+    if (item) {
+        item.quantity = quantity;
+        if (item.quantity <= 0) {
+            // Remove item if quantity is zero or less
+            const idx = cart.indexOf(item);
+            cart.splice(idx, 1);
+        }
+        saveCart(cart);
+    }
+}
+
+function removeCartItem(id, size, color) {
+    const cart = getCart();
+    const idx = cart.findIndex(i => i.id === id && i.size === size && i.color === color);
+    if (idx > -1) {
+        cart.splice(idx, 1);
+        saveCart(cart);
+    }
+}
+
+function clearCart() {
+    localStorage.removeItem(CART_KEY);
+}
+
+// Export functions for use in other scripts
+window.CartUtils = {
+    getCart,
+    saveCart,
+    addToCart,
+    updateCartItem,
+    removeCartItem,
+    clearCart
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    renderCartItems();
+    updateCartSummary();
+    updateCartCountBadge();
+});
+
+function renderCartItems() {
+    const cart = CartUtils.getCart();
+    const container = document.querySelector('.cart-items-section');
+    container.innerHTML = '';
+    if (cart.length === 0) {
+        container.innerHTML = '<p>Your cart is empty.</p>';
+        return;
+    }
+    cart.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'cart-item';
+        itemDiv.innerHTML = `
+            <img src="${item.image}" alt="${item.name}" class="cart-item-image" style="width:80px;">
+            <div>
+                <div>${item.name}</div>
+                <div>Color: ${item.color} | Size: ${item.size}</div>
+                <div>Price: Rp${item.price.toLocaleString('id-ID')}</div>
+                <div>
+                    <button class="qty-btn" data-action="decrease" data-id="${item.id}" data-size="${item.size}" data-color="${item.color}">-</button>
+                    <span>${item.quantity}</span>
+                    <button class="qty-btn" data-action="increase" data-id="${item.id}" data-size="${item.size}" data-color="${item.color}">+</button>
+                </div>
+                <button class="remove-item-btn" data-id="${item.id}" data-size="${item.size}" data-color="${item.color}">Remove</button>
+            </div>
+            <div>Subtotal: Rp${itemTotal.toLocaleString('id-ID')}</div>
+        `;
+        container.appendChild(itemDiv);
+    });
+
+    container.querySelectorAll('.qty-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const { id, size, color, action } = btn.dataset;
+            const cart = CartUtils.getCart();
+            const item = cart.find(i => i.id === id && i.size === size && i.color === color);
+            if (!item) return;
+            if (action === 'increase') {
+                CartUtils.updateCartItem(id, size, color, item.quantity + 1);
+            } else if (action === 'decrease') {
+                CartUtils.updateCartItem(id, size, color, item.quantity - 1);
+            }
+            renderCartItems();
+            updateCartSummary();
+            updateCartCountBadge();
+        });
+    });
+    container.querySelectorAll('.remove-item-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const { id, size, color } = btn.dataset;
+            CartUtils.removeCartItem(id, size, color);
+            renderCartItems();
+            updateCartSummary();
+            updateCartCountBadge();
+        });
+    });
+}
+
+function updateCartSummary() {
+    const cart = CartUtils.getCart();
+    let subtotal = 0;
+    cart.forEach(item => {
+        subtotal += item.price * item.quantity;
+    });
+    document.getElementById('cartSubtotalValue').textContent = 'Rp' + subtotal.toLocaleString('id-ID');
+}
+
+function updateCartCountBadge() {
+    const badge = document.getElementById('cartCountBadge');
+    if (badge) badge.textContent = CartUtils.getCartCount();
+}
 });

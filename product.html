@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
-    <title>ZARA - PRODUCT</title>
+    <title>ZARA - PRODUCTS</title>
     <link rel="stylesheet" href="css/product.css" />
     <link rel="stylesheet" href="css/home.css">
 </head>
@@ -11,7 +11,7 @@
     <div class="product-page-container">
         <header class="main-header">
             <div class="header-top-row">
-                <img class="zara-logo" src="assets/Zara_Logo.svg" alt="Zara Logo">
+                <img class="zara-logo" src="assets/Zara_Logo.svg" alt="Zara Logo" onclick="window.location.href='home.html'">
                 <div class="utility-nav">
                     <div class="utility-item">
                         <img class="icon profile-icon" src="assets/profileIcon.svg" alt="Profile">
@@ -47,7 +47,58 @@
         </div>
 
         <main class="product-listing-content">
-            <div class="product-grid"></div>
+            <div class="category-title-bar">
+                <h1 class="category-title" id="categoryTitle">PRODUCTS</h1>
+                <div class="filters-sort-section">
+                    <div class="sort-dropdown">
+                        <span class="sort-label" id="sortLabel">Sort: Alphabets A-Z</span>
+                        <img class="sort-arrow" src="assets/arrows.svg" alt="Sort Order">
+                        <div class="sort-options-list">
+                            <span class="sort-option active" data-sort="az">Alphabets A-Z</span>
+                            <span class="sort-option" data-sort="za">Alphabets Z-A</span>
+                            <span class="sort-option" data-sort="lowToHigh">Price: Low to High</span>
+                            <span class="sort-option" data-sort="highToLow">Price: High to Low</span>
+                        </div>
+                    </div>
+                    <div class="filter-options">
+                        <div class="filter-dropdown" id="sizeFilter">
+                            <span class="filter-label">SIZE</span>
+                            <img class="filter-icon" src="assets/filter.svg" alt="Filter">
+                            <div class="filter-content">
+                                <label><input type="checkbox" value="XS"> XS</label>
+                                <label><input type="checkbox" value="S"> S</label>
+                                <label><input type="checkbox" value="M"> M</label>
+                                <label><input type="checkbox" value="L"> L</label>
+                                <label><input type="checkbox" value="XL"> XL</label>
+                            </div>
+                        </div>
+                        <div class="filter-dropdown" id="colorFilter">
+                            <span class="filter-label">COLOR</span>
+                            <img class="filter-icon" src="assets/filter.svg" alt="Filter">
+                            <div class="filter-content filter-color-options">
+                                <div class="filter-color-swatch" data-color="black"><input type="checkbox" value="black"></div>
+                                <div class="filter-color-swatch" data-color="white"><input type="checkbox" value="white"></div>
+                                <div class="filter-color-swatch" data-color="grey"><input type="checkbox" value="grey"></div>
+                                <div class="filter-color-swatch" data-color="red"><input type="checkbox" value="red"></div>
+                            </div>
+                        </div>
+                        <div class="filter-dropdown" id="priceFilter">
+                            <span class="filter-label">PRICE</span>
+                            <img class="filter-icon" src="assets/filter.svg" alt="Filter">
+                            <div class="filter-content">
+                                <label><input type="checkbox" value="0-500k"> Below Rp500.000</label>
+                                <label><input type="checkbox" value="500k-1m"> Rp500.000 - Rp1.000.000</label>
+                                <label><input type="checkbox" value="1m+"> Above Rp1.000.000</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="product-grid-section">
+                <div class="product-grid" id="productListingGrid">
+                    </div>
+            </section>
         </main>
 
         <footer class="main-footer">
@@ -61,6 +112,8 @@
             </div>
         </footer>
     </div>
+    <script src="js/products_data.js"></script>
     <script src="js/product.js"></script>
+    <script src="js/cart.js"></script>
 </body>
 </html>

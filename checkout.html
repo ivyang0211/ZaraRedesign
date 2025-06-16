@@ -4,7 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
     <title>ZARA - Checkout</title>
-    <link rel="stylesheet" href="css/home.css" /> <link rel="stylesheet" href="css/checkout.css" />
+    <link rel="stylesheet" href="css/home.css" />
+    <link rel="stylesheet" href="css/checkout.css" />
 </head>
 <body>
     <div class="checkout-page-container">
@@ -13,25 +14,24 @@
                 <img class="zara-logo" src="assets/Zara_Logo.svg" alt="Zara Logo" onclick="window.location.href='home.html'">
                 <div class="utility-nav">
                     <div class="utility-item">
-                        <img class="icon profile-icon" src="assets/profileIcon.svg" alt="Profile" >
-                        <span class="log-in-text">Log In</span>
+                        <img class="icon profile-icon" src="assets/profileIcon.svg" alt="Profile">
+                        <span class="log-in-text">Log in</span>
                     </div>
                     <div class="utility-item">
-                        <img class="icon heart-icon" src="assets/heartIcon.svg" alt="Favorites" >
+                        <img class="icon heart-icon" src="assets/heartIcon.svg" alt="Favorites">
                         <span class="count" id="favCount">0</span>
                     </div>
                     <div class="utility-item">
-                        <a href="cart.html"> <img class="icon bag-icon" src="assets/bagIcon.svg" alt="Shopping Bag"> </a>
-                        <span class="count" id="bagCount">0</span>
-                    </div>
+                        <img class="icon bag-icon" src="assets/bagIcon.svg" alt="Shopping Bag">
+                        <span class="count" id="bagCount">0</span> </div>
                 </div>
             </div>
             <div class="header-bottom-row">
                 <nav class="main-nav">
                     <a href="home.html" class="nav-item">NEW ARRIVALS</a>
-                    <a href="product.html" class="nav-item">WOMAN</a>
-                    <a href="product-men.html" class="nav-item">MAN</a>
-                    <a href="product-kids.html" class="nav-item">KIDS</a>
+                    <a href="product.html?cat=WOMAN" class="nav-item">WOMAN</a>
+                    <a href="product.html?cat=MAN" class="nav-item">MAN</a>
+                    <a href="product.html?cat=KIDS" class="nav-item">KIDS</a>
                 </nav>
                 <div class="search-section">
                     <input type="text" class="search-input-header" placeholder="" id="headerSearchInput">
@@ -56,7 +56,7 @@
                         <h2 class="step-title">1. DELIVERY OPTION</h2>
                         <div class="step-content">
                             <p class="alteration-note">Order With Alteration: +1 day from the normal delivery lead time.</p>
-                            
+
                             <div class="delivery-choices">
                                 <div class="delivery-choice">
                                     <input type="radio" id="shipToAddress" name="deliveryOption" value="ship" checked>
@@ -78,17 +78,18 @@
 
                             <div class="address-display-container">
                                 <div class="address-info">
-                                    <p class="address-name-phone">Evelyn (+62) 813 9586 2344</p>
+                                    <p class="address-name-phone">John Doe (+62) XXX XXXX XXXX</p>
                                     <p class="address-lines">
-                                        742 Evergreen Terrace, Apartment 2A, Westwood District, Los Angeles, California 90001, United States, Phone: +1 (310) 555-0198
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                     </p>
                                 </div>
-                                <button class="edit-address-btn">EDIT</button>
+                                <button class="edit-address-btn" id="editAddressBtn">EDIT</button>
                             </div>
 
                             <div class="step-actions">
-                                <button class="btn-primary continue-payment-btn" onclick="window.location.href='track.html'">CONTINUE TO PAYMENT</button>
-                                <button class="btn-secondary register-address-btn">REGISTER A NEW ADDRESS</button>
+                                <button class="btn-primary continue-payment-btn" id="continueToPaymentBtn">CONTINUE TO PAYMENT</button>
+                                <button class="btn-secondary register-address-btn" id="registerAddressBtn">REGISTER A NEW ADDRESS</button>
                             </div>
                         </div>
                     </div>
@@ -96,7 +97,68 @@
                     <div class="checkout-step" id="paymentOptionStep">
                         <h2 class="step-title">2. PAYMENT OPTION</h2>
                         <div class="step-content" style="display: none;">
-                            <p>Payment details will be available here.</p>
+                            <div class="payment-methods">
+                                <div class="payment-method-option">
+                                    <input type="radio" id="creditCard" name="paymentMethod" value="creditCard" checked>
+                                    <label for="creditCard">Credit/Debit Card</label>
+                                    <div class="payment-details-content" id="cardDetailsContent">
+                                        <div class="form-group">
+                                            <label for="cardNumber">Card Number</label>
+                                            <input type="text" id="cardNumber" placeholder="XXXX XXXX XXXX XXXX">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cardName">Name on Card</label>
+                                            <input type="text" id="cardName" placeholder="JOHN DOE">
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="expiryDate">Expiry Date</label>
+                                                <input type="text" id="expiryDate" placeholder="MM/YY">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cvv">CVV</label>
+                                                <input type="text" id="cvv" placeholder="XXX">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="payment-method-option">
+                                    <input type="radio" id="bankTransfer" name="paymentMethod" value="bankTransfer">
+                                    <label for="bankTransfer">Bank Transfer</label>
+                                    <div class="payment-details-content" id="bankTransferDetailsContent" style="display:none;">
+                                        <p>Please transfer the total amount to the following account:</p>
+                                        <p><strong>Bank:</strong> BCA / Mandiri / BNI / BRI</p>
+                                        <p><strong>Account Name:</strong> PT ZARA INDONESIA</p>
+                                        <p><strong>Account Number:</strong> 1234 5678 9012 (BCA)</p>
+                                        <p>Your order will be processed upon payment verification.</p>
+                                    </div>
+                                </div>
+
+                                <div class="payment-method-option">
+                                    <input type="radio" id="eWallet" name="paymentMethod" value="eWallet">
+                                    <label for="eWallet">E-wallet (DANA, OVO, GoPay)</label>
+                                    <div class="payment-details-content" id="eWalletDetailsContent" style="display:none;">
+                                        <p>You will be prompted to select your e-wallet and scan a QR code or enter your phone number after confirming the order.</p>
+                                        <div class="form-group">
+                                            <label for="eWalletPhone">E-wallet Phone Number (Optional)</label>
+                                            <input type="text" id="eWalletPhone" placeholder="e.g., 081234567890">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="payment-method-option">
+                                    <input type="radio" id="cod" name="paymentMethod" value="cod">
+                                    <label for="cod">Cash on Delivery (COD)</label>
+                                    <div class="payment-details-content" id="codDetailsContent" style="display:none;">
+                                        <p>Pay with cash when your order is delivered to your address. Available for selected areas only.</p>
+                                        <p>Please have the exact amount ready.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="step-actions">
+                                <button class="btn-primary continue-order-summary-btn" id="continueToOrderSummaryBtn">CONTINUE TO ORDER SUMMARY</button>
+                            </div>
                         </div>
                     </div>
 
@@ -104,28 +166,31 @@
                         <h2 class="step-title">3. ORDER SUMMARY</h2>
                         <div class="step-content" style="display: none;">
                             <p>Final order review will be available here.</p>
+                            <div class="step-actions">
+                                <button class="btn-primary place-order-btn" id="placeOrderBtn">PLACE ORDER</button>
+                            </div>
                         </div>
                     </div>
                 </section>
 
                 <aside class="order-summary-section">
-                    <h2 class="summary-title">ORDER SUMMARY | <span id="summaryItemCount">5</span> ITEM(S)</h2>
+                    <h2 class="summary-title">ORDER SUMMARY | <span id="summaryItemCount">0</span> ITEM(S)</h2>
                     <div class="summary-row">
                         <span>Item(s) subtotal</span>
-                        <span>Rp2.750.000</span>
+                        <span id="itemsSubtotalValue">Rp0</span>
                     </div>
                      <div class="summary-row">
                         <span>SUBTOTAL</span>
-                        <span>Rp2.750.000</span>
+                        <span id="subtotalValue">Rp0</span>
                     </div>
                     <div class="summary-row">
                         <span>VAT included</span>
-                        <span>Rp300.000</span>
+                        <span id="vatIncludedValue">Rp0</span>
                     </div>
                     <hr class="summary-divider">
                     <div class="summary-row total">
                         <span>ORDER TOTAL</span>
-                        <span>Rp3.050.000</span>
+                        <span id="orderTotalValue">Rp0</span>
                     </div>
                 </aside>
             </div>
@@ -142,5 +207,8 @@
             </div>
         </footer>
     </div>
-    <script src="js/checkout.js"></script> </body>
+    <script src="js/products_data.js"></script>
+    <script src="js/checkout.js"></script>
+    <script src="js/cart.js"></script>
+</body>
 </html>

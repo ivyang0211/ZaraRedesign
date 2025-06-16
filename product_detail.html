@@ -3,19 +3,18 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
-    <title>ZARA - Catalogue</title>
-    <link rel="stylesheet" href="css/catalogue.css" />
-    <link rel="stylesheet" href="css/home.css">
-</head>
+    <title>ZARA - Product Details</title>
+    <link rel="stylesheet" href="css/product_detail.css" /> 
+    <link rel="stylesheet" href="css/home.css"> </head>
 <body>
-    <div class="product-page">
+    <div class="product-detail-page-container">
         <header class="main-header">
             <div class="header-top-row">
-                <img class="zara-logo" src="assets/Zara_Logo.svg" alt="Zara Logo">
+                <img class="zara-logo" src="assets/Zara_Logo.svg" alt="Zara Logo" onclick="window.location.href='home.html'">
                 <div class="utility-nav">
                     <div class="utility-item">
                         <img class="icon profile-icon" src="assets/profileIcon.svg" alt="Profile">
-                        <span class="log-in-text">Log In</span>
+                        <span class="log-in-text">Log in</span>
                     </div>
                     <div class="utility-item">
                         <img class="icon heart-icon" src="assets/heartIcon.svg" alt="Favorites">
@@ -30,9 +29,9 @@
             <div class="header-bottom-row">
                 <nav class="main-nav">
                     <a href="home.html" class="nav-item">NEW ARRIVALS</a>
-                    <a href="catalogue.html?cat=WOMAN" class="nav-item">WOMAN</a>
-                    <a href="catalogue.html?cat=MAN" class="nav-item">MAN</a>
-                    <a href="catalogue.html?cat=KIDS" class="nav-item">KIDS</a>
+                    <a href="product.html?cat=WOMAN" class="nav-item">WOMAN</a>
+                    <a href="product.html?cat=MAN" class="nav-item">MAN</a>
+                    <a href="product.html?cat=KIDS" class="nav-item">KIDS</a>
                 </nav>
                 <div class="search-section">
                     <input type="text" class="search-input-header" placeholder="" id="headerSearchInput">
@@ -46,17 +45,15 @@
             <button class="close-search" id="closeSearch">X</button>
         </div>
 
-        <main class="catalogue-main-content">
-            <div class="category-filter-bar">
-                <button class="category-btn" data-category="WOMAN">WOMAN</button>
-                <button class="category-btn" data-category="MAN">MAN</button>
-                <button class="category-btn" data-category="KIDS">KIDS</button>
-                <button class="category-btn" data-category="ALL">ALL</button>
-            </div>
-            <div class="product-grid" id="productGrid">
-                <!-- Produk akan di-generate oleh JS -->
-            </div>
+        <main class="product-detail-main-content">
+            <p style="text-align: center; padding: 50px;">Loading product details...</p>
         </main>
+
+        <section class="similar-products-section">
+            <h2 class="section-title">SIMILAR PRODUCT</h2>
+            <div class="product-grid" id="similarProductsGrid">
+                </div>
+        </section>
 
         <footer class="main-footer">
             <div class="footer-content">
@@ -69,6 +66,7 @@
             </div>
         </footer>
     </div>
-    <script src="js/catalogue.js"></script>
-</body>
+    <script src="js/products_data.js"></script>
+    <script src="js/product_detail.js"></script> </body>
+    <script src="js/cart.js"></script>
 </html>

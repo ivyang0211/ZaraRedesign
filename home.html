@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZARA - Official Website</title>
     <link rel="stylesheet" href="css/home.css" />
-    </head>
+</head>
 <body>
     <div class="home-page">
         <header class="main-header">
             <div class="header-top-row">
-                <img class="zara-logo" src="assets/Zara_Logo.svg" alt="Zara Logo">
+                <img class="zara-logo" src="assets/Zara_Logo.svg" alt="Zara Logo" onclick="window.location.href='home.html'">
                 <div class="utility-nav">
                     <div class="utility-item">
                         <img class="icon profile-icon" src="assets/profileIcon.svg" alt="Profile">
@@ -56,8 +56,8 @@
         <section class="products-section">
             <h2 class="section-title">NEW ARRIVALS</h2>
             <div class="product-grid" id="newArrivalsGrid">
-                <div class="product-card">
-                    <a href="catalogue.html">
+                <div class="product-card" data-product-id="clothes1">
+                    <a href="product_detail.html?id=clothes1">
                         <img class="product-thumbnail" src="assets/clothes1.jpg" alt="Flowing Wide-leg Trousers">
                     </a>
                     <div class="color-swatches">
@@ -74,8 +74,8 @@
                     <p class="product-meta product-price">Rp749.000</p>
                     <img class="product-card-heart" src="assets/heartIcon.svg" alt="Add to Favorites">
                 </div>
-                <div class="product-card">
-                    <a href="catalogue.html">
+                <div class="product-card" data-product-id="clothes2">
+                    <a href="product_detail.html?id=clothes2">
                         <img class="product-thumbnail" src="assets/clothes2.jpg" alt="Beach Party Dress">
                     </a>
                     <div class="color-swatches">
@@ -92,8 +92,8 @@
                     <p class="product-meta product-price">Rp1.099.900</p>
                     <img class="product-card-heart" src="assets/heartIcon.svg" alt="Add to Favorites">
                 </div>
-                <div class="product-card">
-                    <a href="catalogue.html">
+                <div class="product-card" data-product-id="clothes3">
+                    <a href="product_detail.html?id=clothes3">
                         <img class="product-thumbnail" src="assets/clothes3.jpg" alt="Pleated Trousers">
                     </a>
                     <div class="color-swatches">
@@ -110,8 +110,8 @@
                     <p class="product-meta product-price">Rp799.900</p>
                     <img class="product-card-heart" src="assets/heartIcon.svg" alt="Add to Favorites">
                 </div>
-                <div class="product-card">
-                    <a href="catalogue.html">
+                <div class="product-card" data-product-id="clothes4">
+                    <a href="product_detail.html?id=clothes4">
                         <img class="product-thumbnail" src="assets/clothes4.jpg" alt="A-Line Trousers">
                     </a>
                     <div class="color-swatches">
@@ -134,8 +134,8 @@
         <section class="products-section">
             <h2 class="section-title">FAVORITE PRODUCT</h2>
             <div class="product-grid" id="favoriteProductsGrid">
-                <div class="product-card">
-                    <a href="catalogue.html">
+                <div class="product-card" data-product-id="clothes5">
+                    <a href="product_detail.html?id=clothes5">
                         <img class="product-thumbnail" src="assets/clothes5.jpg" alt="Polkadots Pants">
                     </a>
                     <div class="color-swatches">
@@ -152,8 +152,8 @@
                     <p class="product-meta product-price">Rp559.900</p>
                     <img class="product-card-heart" src="assets/heartIcon.svg" alt="Add to Favorites">
                 </div>
-                <div class="product-card">
-                    <a href="catalogue.html">
+                <div class="product-card" data-product-id="clothes6">
+                    <a href="product_detail.html?id=clothes6">
                         <img class="product-thumbnail" src="assets/clothes6.jpg" alt="Polkadots Halter Top">
                     </a>
                     <div class="color-swatches">
@@ -170,8 +170,8 @@
                     <p class="product-meta product-price">Rp350.900</p>
                     <img class="product-card-heart" src="assets/heartIcon.svg" alt="Add to Favorites">
                 </div>
-                <div class="product-card">
-                    <a href="catalogue.html">
+                <div class="product-card" data-product-id="clothes7">
+                    <a href="product_detail.html?id=clothes7">
                         <img class="product-thumbnail" src="assets/clothes7.jpg" alt="Contrast Topstitching Trousers">
                     </a>
                     <div class="color-swatches">
@@ -188,8 +188,8 @@
                     <p class="product-meta product-price">Rp999.900</p>
                     <img class="product-card-heart" src="assets/heartIcon.svg" alt="Add to Favorites">
                 </div>
-                <div class="product-card">
-                    <a href="catalogue.html">
+                <div class="product-card" data-product-id="clothes8">
+                    <a href="product_detail.html?id=clothes8">
                         <img class="product-thumbnail" src="assets/clothes8.jpg" alt="Stripped Sequin Trousers">
                     </a>
                     <div class="color-swatches">
@@ -206,8 +206,8 @@
                     <p class="product-meta product-price">Rp999.900</p>
                     <img class="product-card-heart" src="assets/heartIcon.svg" alt="Add to Favorites">
                 </div>
-                <div class="product-card">
-                    <a href="catalogue.html">
+                <div class="product-card" data-product-id="clothes9">
+                    <a href="product_detail.html?id=clothes9">
                         <img class="product-thumbnail" src="assets/clothes9.jpg" alt="Linen Blend Wide-leg Trousers">
                     </a>
                     <div class="color-swatches">
@@ -239,6 +239,8 @@
         </footer>
 
     </div>
+    <script src="js/products_data.js"></script>
     <script src="js/home.js"></script>
+    <script src="js/cart.js"></script>
 </body>
 </html>

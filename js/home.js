@@ -1,8 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Ensure ALL_PRODUCTS_DATA is available (from products_data.js)
+    if (typeof ALL_PRODUCTS_DATA === 'undefined') {
+        console.error('ALL_PRODUCTS_DATA not found. Make sure js/products_data.js is loaded before home.js');
+        return;
+    }
+
     // --- Header & Navbar Interactions ---
-    const searchIcon = document.getElementById('searchIcon'); // This is now the header search icon
-    const headerSearchInput = document.getElementById('headerSearchInput'); // New: input field in header
-    const searchOverlay = document.getElementById('searchOverlay'); // Full-screen overlay
+    const searchIcon = document.getElementById('searchIcon');
+    const searchOverlay = document.getElementById('searchOverlay');
     const closeSearchButton = document.getElementById('closeSearch');
     const favCount = document.getElementById('favCount');
     const bagCount = document.getElementById('bagCount');
@@ -10,21 +15,17 @@ document.addEventListener('DOMContentLoaded', () => {
     let favorites = 0;
     let bagItems = 0;
 
-    // Toggle full-screen search overlay
-    // The search icon in the header now triggers the full-screen overlay,
-    // not just the input field next to it.
     searchIcon.addEventListener('click', () => {
         searchOverlay.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Prevent scrolling when overlay is active
-        document.querySelector('.search-input-overlay').focus(); // Focus on the overlay input
+        document.body.style.overflow = 'hidden';
+        document.querySelector('.search-input-overlay').focus();
     });
 
     closeSearchButton.addEventListener('click', () => {
         searchOverlay.classList.remove('active');
-        document.body.style.overflow = ''; // Restore scrolling
+        document.body.style.overflow = '';
     });
 
-    // Close search overlay when clicking outside (on the overlay itself)
     searchOverlay.addEventListener('click', (e) => {
         if (e.target === searchOverlay) {
             searchOverlay.classList.remove('active');
@@ -32,60 +33,40 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Handle "Log In" click (placeholder)
     const logInText = document.querySelector('.log-in-text');
-    const profileIcon = document.querySelector('.profile-icon'); // New: Target the profile icon
-
+    const profileIcon = document.querySelector('.profile-icon');
     if (logInText) {
-        logInText.addEventListener('click', () => {
-            alert('Redirecting to Log In / Register page...'); // Replace with actual login page redirect
-            // window.location.href = 'login.html';
-        });
+        logInText.addEventListener('click', () => alert('Redirecting to Log In / Register page...'));
     }
     if (profileIcon) {
-        profileIcon.addEventListener('click', () => {
-            alert('Redirecting to Log In / Register page...'); // Replace with actual login page redirect
-            // window.location.href = 'login.html';
-        });
+        profileIcon.addEventListener('click', () => alert('Redirecting to Log In / Register page...'));
     }
 
-
-    // Handle Shopping Cart click (placeholder)
     const shoppingCartIcon = document.querySelector('.bag-icon');
     if (shoppingCartIcon) {
-        shoppingCartIcon.addEventListener('click', () => {
-            alert(`You have ${bagItems} items in your shopping bag.`);
-            // window.location.href = 'cart.html'; // Redirect to cart page
-        });
+        shoppingCartIcon.addEventListener('click', () => alert(`You have ${bagItems} items in your shopping bag.`));
     }
 
-    // Handle Favorites icon click (placeholder)
     const favoritesIcon = document.querySelector('.heart-icon');
     if (favoritesIcon) {
-        favoritesIcon.addEventListener('click', () => {
-            alert(`You have ${favorites} items in your favorites.`);
-            // window.location.href = 'favorites.html'; // Redirect to favorites page
-        });
+        favoritesIcon.addEventListener('click', () => alert(`You have ${favorites} items in your favorites.`));
     }
 
-
-    // --- Product Component Interactions ---
+    // --- Product Card Interactions ---
     document.querySelectorAll('.product-card').forEach(card => {
         const heartIcon = card.querySelector('.product-card-heart');
         const colorSwatches = card.querySelectorAll('.swatch');
-        const productNameElement = card.querySelector('.product-name');
+        const productLinkElement = card.querySelector('a');
 
         // Toggle favorite status
         if (heartIcon) {
             heartIcon.addEventListener('click', (event) => {
-                event.stopPropagation(); // Prevent card click event from firing
+                event.stopPropagation(); // Prevent card navigation
                 const isFavorited = heartIcon.classList.toggle('favorited');
                 if (isFavorited) {
                     favorites++;
-                    console.log('Added to favorites!');
                 } else {
-                    favorites = Math.max(0, favorites - 1); // Ensure it doesn't go below 0
-                    console.log('Removed from favorites!');
+                    favorites = Math.max(0, favorites - 1);
                 }
                 favCount.textContent = favorites;
             });
@@ -94,47 +75,52 @@ document.addEventListener('DOMContentLoaded', () => {
         // Highlight active color swatch
         colorSwatches.forEach(swatch => {
             swatch.addEventListener('click', (event) => {
-                event.stopPropagation(); // Prevent card click event from firing
-                // Remove 'active' from all swatches in this card
-                colorSwatches.forEach(el => el.classList.remove('active'));
-                // Add 'active' to the clicked swatch
+                event.stopPropagation(); // Prevent card navigation
+                colorSwatches.forEach(s => s.classList.remove('active'));
                 swatch.classList.add('active');
-                console.log(`Selected color: ${swatch.dataset.color}`);
-                // In a real scenario, you'd update the product image based on the selected color
             });
         });
 
-        // Add to Bag functionality (simulated by clicking product name)
-        if (productNameElement) {
-            productNameElement.addEventListener('click', (event) => {
-                event.stopPropagation(); // Prevent card click event from firing
-                bagItems++;
-                bagCount.textContent = bagItems;
-                alert(`"${productNameElement.textContent}" added to bag! Total items: ${bagItems}`);
+        if (productLinkElement) {
+            card.addEventListener('click', (event) => {
+                if (event.target.closest('a') !== productLinkElement) {
+                    window.location.href = productLinkElement.href;
+                }
             });
         }
-
-        // Handle entire product card click
-        card.addEventListener('click', () => {
-            const productLink = card.querySelector('a');
-            if (productLink && productLink.href) {
-                window.location.href = productLink.href; // Navigate to catalogue.html
-            }
-        });
     });
 
     // Highlight navbar active
     const path = window.location.pathname;
-    const params = new URLSearchParams(window.location.search);
-    const cat = params.get('cat');
+    const currentParams = new URLSearchParams(window.location.search);
+    const currentCatParam = currentParams.get('cat');
     const navLinks = document.querySelectorAll('.main-nav .nav-item');
+
     navLinks.forEach(link => {
         link.classList.remove('active');
-        if (path.endsWith('home.html') && link.href.includes('home.html')) link.classList.add('active');
-        else if ((path.endsWith('product.html') || path.endsWith('catalogue.html')) && cat && link.href.includes(cat)) link.classList.add('active');
-        else if (path.endsWith('product.html') && !cat && link.href.includes('product.html')) link.classList.add('active');
-        else if (path.endsWith('catalogue.html') && !cat && link.href.includes('catalogue.html')) link.classList.add('active');
+        const linkUrl = new URL(link.href);
+        const linkPath = linkUrl.pathname;
+        const linkParams = new URLSearchParams(linkUrl.search);
+        const linkCatParam = linkParams.get('cat');
+
+        if (path.endsWith('home.html') && linkPath.endsWith('home.html')) {
+            link.classList.add('active');
+        } else if (path.endsWith('product.html')) {
+            if (currentCatParam && linkCatParam === currentCatParam) {
+                link.classList.add('active');
+            } else if (!currentCatParam && linkPath.endsWith('product.html')) {
+                if (link.href.includes("product.html?cat=WOMAN")) {
+                     link.classList.add('active');
+                }
+            }
+        } else if (path.endsWith('product_detail.html')) { 
+            const productId = currentParams.get('id');
+            const product = ALL_PRODUCTS_DATA.find(p => p.id === productId);
+            if (product && linkCatParam === product.category) {
+                link.classList.add('active');
+            }
+        }
     });
 
-    console.log("Zara homepage interactivity loaded!");
+    console.log("Homepage interactivity loaded!");
 });

@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
-    <title>ZARA - Product Details</title>
+    <title>ZARA - Catalogue</title>
     <link rel="stylesheet" href="css/catalogue.css" />
     <link rel="stylesheet" href="css/home.css">
 </head>
@@ -30,9 +30,9 @@
             <div class="header-bottom-row">
                 <nav class="main-nav">
                     <a href="home.html" class="nav-item">NEW ARRIVALS</a>
-                    <a href="product.html" class="nav-item">WOMAN</a>
-                    <a href="product-men.html" class="nav-item">MAN</a>
-                    <a href="product-kids.html" class="nav-item">KIDS</a>
+                    <a href="catalogue.html?cat=WOMAN" class="nav-item">WOMAN</a>
+                    <a href="catalogue.html?cat=MAN" class="nav-item">MAN</a>
+                    <a href="catalogue.html?cat=KIDS" class="nav-item">KIDS</a>
                 </nav>
                 <div class="search-section">
                     <input type="text" class="search-input-header" placeholder="" id="headerSearchInput">
@@ -46,166 +46,17 @@
             <button class="close-search" id="closeSearch">X</button>
         </div>
 
-        <main class="product-detail-main-content">
-            <div class="product-image-gallery">
-                <img class="product-main-image" src="assets/clothes1.jpg" alt="Product Image">
-                </div>
-
-            <div class="product-info-column">
-                <h1 class="product-name">Flowing Wide-leg Trousers</h1>
-                <p class="product-price">Rp749.000</p>
-
-                <div class="product-options">
-                    <div class="option-group color-option-group">
-                        <p class="option-label">COLOR: <span id="selectedColor">BLACK</span></p>
-                        <div class="color-swatches">
-                            <div class="swatch active" data-color="black" data-label="BLACK"></div>
-                            <div class="swatch" data-color="white" data-label="WHITE"></div>
-                            <div class="swatch" data-color="green" data-label="GREEN"></div>
-                            <div class="swatch" data-color="blue" data-label="BLUE"></div>
-                        </div>
-                    </div>
-
-                    <div class="option-group size-option-group">
-                        <p class="option-label">SIZE: <span id="selectedSize">XX</span></p>
-                        <div class="size-options">
-                            <div class="size-box" data-size="XS">XS</div>
-                            <div class="size-box" data-size="S">S</div>
-                            <div class="size-box" data-size="M">M</div>
-                            <div class="size-box" data-size="L">L</div>
-                            <div class="size-box" data-size="XL">XL</div>
-                            <div class="size-box" data-size="XXL">XXL</div>
-                            <div class="size-box" data-size="3XL">3XL</div>
-                        </div>
-                    </div>
-
-                    <div class="quantity-selector">
-                        <button class="qty-btn" id="decreaseQty">-</button>
-                        <span class="qty-display" id="productQty">1</span>
-                        <button class="qty-btn" id="increaseQty">+</button>
-                    </div>
-
-                    <div class="add-to-cart-section">
-                        <button class="add-to-cart-btn" id="addToCartBtn" onclick="window.location.href='/cart.html'">ADD TO CART</button>
-                        <img class="heart-product-page" src="assets/heartIcon.svg" alt="Add to Favorites">
-                    </div>
-                </div>
-
-                <div class="product-info-details">
-                    <div class="info-accordion">
-                        <div class="accordion-header">PRODUCT DETAIL <span class="accordion-icon">+</span></div>
-                        <div class="accordion-content">
-                            <p>This lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            <ul>
-                                <li>Material: 100% Cotton</li>
-                                <li>Care: Machine wash cold</li>
-                                <li>Origin: Made in Portugal</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="accordion-divider"></div>
-
-                    <div class="info-accordion">
-                        <div class="accordion-header">SIZING GUIDE <span class="accordion-icon">+</span></div>
-                        <div class="accordion-content">
-                            <p>Find your perfect fit with our comprehensive sizing guide. Measurements are in centimeters.</p>
-                            <table>
-                                <thead>
-                                    <tr><th>Size</th><th>Waist</th><th>Hip</th></tr>
-                                </thead>
-                                <tbody>
-                                    <tr><td>XS</td><td>60-64</td><td>88-92</td></tr>
-                                    <tr><td>S</td><td>65-69</td><td>93-97</td></tr>
-                                    <tr><td>M</td><td>70-74</td><td>98-102</td></tr>
-                                    </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="accordion-divider"></div>
-                </div>
+        <main class="catalogue-main-content">
+            <div class="category-filter-bar">
+                <button class="category-btn" data-category="WOMAN">WOMAN</button>
+                <button class="category-btn" data-category="MAN">MAN</button>
+                <button class="category-btn" data-category="KIDS">KIDS</button>
+                <button class="category-btn" data-category="ALL">ALL</button>
+            </div>
+            <div class="product-grid" id="productGrid">
+                <!-- Produk akan di-generate oleh JS -->
             </div>
         </main>
-
-        <section class="similar-products-section">
-            <h2 class="section-title">SIMILAR PRODUCT</h2>
-            <div class="product-grid">
-                <div class="product-card">
-                    <a href="catalogue.html">
-                        <img class="product-thumbnail" src="assets/clothes11.jpg" alt="Similar Product 1">
-                    </a>
-                    <div class="color-swatches-small">
-                        <div class="swatch-small" data-color="black"></div>
-                        <div class="swatch-small" data-color="white"></div>
-                        <div class="swatch-small" data-color="red"></div>
-                    </div>
-                    <p class="product-meta product-category">WOMAN</p>
-                    <p class="product-meta product-name">Striped Midi Skirt</p>
-                    <p class="product-meta product-price">Rp699.900</p>
-                    <p class="product-meta product-size-small">XS-3XL</p>
-                    <img class="product-card-heart-small" src="assets/heartIcon.svg" alt="Add to Favorites">
-                </div>
-                <div class="product-card">
-                    <a href="catalogue.html">
-                        <img class="product-thumbnail" src="assets/clothes12.jpg" alt="Similar Product 2">
-                    </a>
-                    <div class="color-swatches-small">
-                        <div class="swatch-small" data-color="blue"></div>
-                        <div class="swatch-small" data-color="green"></div>
-                        <div class="swatch-small" data-color="yellow"></div>
-                    </div>
-                    <p class="product-meta product-category">WOMAN</p>
-                    <p class="product-meta product-name">Floral Print Blouse</p>
-                    <p class="product-meta product-price">Rp459.900</p>
-                    <p class="product-meta product-size-small">XS-3XL</p>
-                    <img class="product-card-heart-small" src="assets/heartIcon.svg" alt="Add to Favorites">
-                </div>
-                <div class="product-card">
-                    <a href="catalogue.html">
-                        <img class="product-thumbnail" src="assets/clothes13.jpg" alt="Similar Product 3">
-                    </a>
-                    <div class="color-swatches-small">
-                        <div class="swatch-small" data-color="gray"></div>
-                        <div class="swatch-small" data-color="black"></div>
-                        <div class="swatch-small" data-color="beige"></div>
-                    </div>
-                    <p class="product-meta product-category">WOMAN</p>
-                    <p class="product-meta product-name">Linen Blend Jacket</p>
-                    <p class="product-meta product-price">Rp1.299.900</p>
-                    <p class="product-meta product-size-small">XS-3XL</p>
-                    <img class="product-card-heart-small" src="assets/heartIcon.svg" alt="Add to Favorites">
-                </div>
-                <div class="product-card">
-                    <a href="catalogue.html">
-                        <img class="product-thumbnail" src="assets/clothes14.jpg" alt="Similar Product 4">
-                    </a>
-                    <div class="color-swatches-small">
-                        <div class="swatch-small" data-color="black"></div>
-                        <div class="swatch-small" data-color="white"></div>
-                        <div class="swatch-small" data-color="brown"></div>
-                    </div>
-                    <p class="product-meta product-category">WOMAN</p>
-                    <p class="product-meta product-name">Knitted Cardigan</p>
-                    <p class="product-meta product-price">Rp899.900</p>
-                    <p class="product-meta product-size-small">XS-3XL</p>
-                    <img class="product-card-heart-small" src="assets/heartIcon.svg" alt="Add to Favorites">
-                </div>
-                <div class="product-card">
-                    <a href="catalogue.html">
-                        <img class="product-thumbnail" src="assets/clothes15.jpg" alt="Similar Product 5">
-                    </a>
-                    <div class="color-swatches-small">
-                        <div class="swatch-small" data-color="olive"></div>
-                        <div class="swatch-small" data-color="navy"></div>
-                        <div class="swatch-small" data-color="burgundy"></div>
-                    </div>
-                    <p class="product-meta product-category">WOMAN</p>
-                    <p class="product-meta product-name">Satin Slip Dress</p>
-                    <p class="product-meta product-price">Rp799.900</p>
-                    <p class="product-meta product-size-small">XS-3XL</p>
-                    <img class="product-card-heart-small" src="assets/heartIcon.svg" alt="Add to Favorites">
-                </div>
-            </div>
-        </section>
 
         <footer class="main-footer">
             <div class="footer-content">

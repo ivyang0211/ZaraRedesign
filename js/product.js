@@ -225,5 +225,112 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+    // Ambil semua produk dari localStorage
+    const allProducts = JSON.parse(localStorage.getItem('allProducts')) || [];
+
+    const cat = getQueryParam('cat') || 'WOMAN';
+    const gridContainer = document.querySelector('.product-listing-content .product-grid');
+    if (gridContainer) {
+        gridContainer.innerHTML = '';
+        const filtered = allProducts.filter(p => p.category === cat);
+        filtered.forEach(product => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+                <img class="product-thumbnail" src="${product.image}" alt="${product.name}" data-id="${product.id}">
+                <div class="color-swatches">
+                    ${product.colors.map(c => `<div class='swatch' data-color='${c}'></div>`).join('')}
+                </div>
+                <div class="product-info-line">
+                    <p class="product-meta product-category">${product.category}</p>
+                    <p class="product-meta product-size">${product.sizes.join('-')}</p>
+                </div>
+                <p class="product-meta product-name">${product.name}</p>
+                <p class="product-meta product-price">Rp${product.price.toLocaleString('id-ID')}</p>
+                <img class="product-card-heart" src="assets/heartIcon.svg" alt="Add to Favorites">
+            `;
+            // Favorite button logic
+            const favBtn = card.querySelector('.product-card-heart');
+            let favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+            if (favs.includes(product.id)) favBtn.classList.add('favorited');
+            favBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+                if (favs.includes(product.id)) {
+                    favs = favs.filter(id => id !== product.id);
+                    favBtn.classList.remove('favorited');
+                } else {
+                    favs.push(product.id);
+                    favBtn.classList.add('favorited');
+                }
+                localStorage.setItem('favorites', JSON.stringify(favs));
+            });
+            card.querySelector('.product-thumbnail').addEventListener('click', () => {
+                localStorage.setItem('selectedProduct', JSON.stringify(product));
+                localStorage.setItem('allProducts', JSON.stringify(allProducts));
+                window.location.href = `catalogue.html?cat=${product.category}&id=${product.id}`;
+            });
+            gridContainer.appendChild(card);
+        });
+    }
+
+    // Highlight navbar active
+    const path = window.location.pathname;
+    const params = new URLSearchParams(window.location.search);
+    const catParam = params.get('cat');
+    const navLinks = document.querySelectorAll('.main-nav .nav-item');
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (path.endsWith('home.html') && link.href.includes('home.html')) link.classList.add('active');
+        else if ((path.endsWith('product.html') || path.endsWith('catalogue.html')) && catParam && link.href.includes(catParam)) link.classList.add('active');
+        else if (path.endsWith('product.html') && !catParam && link.href.includes('product.html')) link.classList.add('active');
+        else if (path.endsWith('catalogue.html') && !catParam && link.href.includes('catalogue.html')) link.classList.add('active');
+    });
+
     console.log("Product page interactivity loaded!");
 });
+
+// Struktur data produk lengkap
+const products = [
+    // WOMAN: clothes1 - clothes16
+    ...Array.from({length: 16}, (_, i) => ({
+        id: i + 1,
+        name: `WOMAN Product ${i + 1}`,
+        price: 499000 + (i * 20000),
+        category: "WOMAN",
+        image: `assets/clothes${i + 1}.jpg`,
+        colors: ["black", "white", "beige", "blue"],
+        sizes: ["XS-3XL"],
+        description: `Deskripsi produk WOMAN ${i + 1}`
+    })),
+    // MAN: clothes30 - clothes45
+    ...Array.from({length: 16}, (_, i) => ({
+        id: 100 + i + 1,
+        name: `MAN Product ${i + 1}`,
+        price: 399000 + (i * 25000),
+        category: "MAN",
+        image: `assets/clothes${30 + i}.jpg`,
+        colors: ["navy", "gray", "black", "white"],
+        sizes: ["XS-3XL"],
+        description: `Deskripsi produk MAN ${i + 1}`
+    })),
+    // KIDS: kids1 - kids17
+    ...Array.from({length: 16}, (_, i) => ({
+        id: 200 + i + 1,
+        name: `KIDS Product ${i + 1}`,
+        price: 199000 + (i * 10000),
+        category: "KIDS",
+        image: `assets/kids${i + 1}.jpg`,
+        colors: ["yellow", "green", "white", "blue"],
+        sizes: ["XS-3XL"],
+        description: `Deskripsi produk KIDS ${i + 1}`
+    })),
+];
+
+// Simpan ke localStorage agar bisa diakses dari halaman lain
+localStorage.setItem('allProducts', JSON.stringify(products));

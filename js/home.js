@@ -123,5 +123,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Highlight navbar active
+    const path = window.location.pathname;
+    const params = new URLSearchParams(window.location.search);
+    const cat = params.get('cat');
+    const navLinks = document.querySelectorAll('.main-nav .nav-item');
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (path.endsWith('home.html') && link.href.includes('home.html')) link.classList.add('active');
+        else if ((path.endsWith('product.html') || path.endsWith('catalogue.html')) && cat && link.href.includes(cat)) link.classList.add('active');
+        else if (path.endsWith('product.html') && !cat && link.href.includes('product.html')) link.classList.add('active');
+        else if (path.endsWith('catalogue.html') && !cat && link.href.includes('catalogue.html')) link.classList.add('active');
+    });
+
     console.log("Zara homepage interactivity loaded!");
 });

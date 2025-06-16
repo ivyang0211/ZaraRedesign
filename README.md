@@ -1,6 +1,11 @@
 **STARTUP INSTRUCTION**
-Download repository file as ZIP
-Extract all files
-Open files with Visual Studio Code
-Make sure you have install Live Server extension
-Run the program with the extension
+
+1. Download repository file as ZIP
+
+2. Extract all files
+
+3. Open files with Visual Studio Code
+
+4. Make sure you have install Live Server extension
+
+5. Run the program with the extension

@@ -80,7 +80,39 @@ document.addEventListener('DOMContentLoaded', () => {
         categoryTitleElement.textContent = currentCategory.toUpperCase();
     }
 
-
+    function getSizeRange(sizes, category) {
+        if (!sizes || sizes.length === 0) return '';
+        if (category === 'KIDS') {
+            // For kids, show as 2-11Y or 2-5Y (randomly pick a subrange)
+            if (sizes.length <= 2) return sizes.join('-');
+            const ranges = [
+                [0, sizes.length-1], // 2-11Y
+                [0, 2], // 2-5Y
+                [1, 3], // 4-9Y
+            ];
+            const r = ranges[Math.floor(Math.random()*ranges.length)];
+            const start = Math.max(0, r[0]);
+            const end = Math.min(sizes.length-1, r[1]);
+            if (start >= end) return sizes[0];
+            return `${sizes[start].split('-')[0]}-${sizes[end].split('-')[0]}Y`;
+        } else {
+            // For WOMAN/MAN, randomly pick a subrange for variety
+            if (sizes.length <= 2) return sizes.join('-');
+            const ranges = [
+                [0, 2], // XS-M
+                [1, 3], // S-L
+                [0, 3], // XS-L
+                [2, 4], // M-XL
+                [0, sizes.length-1], // XS-3XL or S-XXL
+                [1, sizes.length-2], // S-XXL or S-XL
+            ];
+            const r = ranges[Math.floor(Math.random()*ranges.length)];
+            const start = Math.max(0, r[0]);
+            const end = Math.min(sizes.length-1, r[1]);
+            if (start >= end) return `${sizes[0]}-${sizes[sizes.length-1]}`;
+            return `${sizes[start]}-${sizes[end]}`;
+        }
+    }
     // Function to render products in the grid
     function renderProducts(category) {
         const productGridElement = document.getElementById('productListingGrid');
@@ -113,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div class="product-info-line">
                     <p class="product-meta product-category">${product.category}</p>
-                    <p class="product-meta product-size">${product.sizes[0]}</p>
+                    <p class="product-meta product-size">${getSizeRange(product.sizes, product.category)}</p>
                 </div>
                 <p class="product-meta product-name">${product.name}</p>
                 <p class="product-meta product-price">Rp${product.price.toLocaleString('id-ID')}</p>

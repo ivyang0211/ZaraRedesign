@@ -193,9 +193,9 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
+        // Update selected size label when a size is clicked
         const sizeBoxes = document.querySelectorAll('.size-options .size-box');
         const selectedSizeDisplay = document.getElementById('selectedSize');
-
         sizeBoxes.forEach(box => {
             box.addEventListener('click', () => {
                 sizeBoxes.forEach(b => b.classList.remove('active'));
@@ -296,6 +296,40 @@ document.addEventListener('DOMContentLoaded', () => {
         return filtered.slice(0, count);
     }
 
+    function getSizeRange(sizes, category) {
+        if (!sizes || sizes.length === 0) return '';
+        if (category === 'KIDS') {
+            // For kids, show as 2-11Y or 2-5Y (randomly pick a subrange)
+            if (sizes.length <= 2) return sizes.join('-');
+            const ranges = [
+                [0, sizes.length-1], // 2-11Y
+                [0, 2], // 2-5Y
+                [1, 3], // 4-9Y
+            ];
+            const r = ranges[Math.floor(Math.random()*ranges.length)];
+            const start = Math.max(0, r[0]);
+            const end = Math.min(sizes.length-1, r[1]);
+            if (start >= end) return sizes[0];
+            return `${sizes[start].split('-')[0]}-${sizes[end].split('-')[0]}Y`;
+        } else {
+            // For WOMAN/MAN, randomly pick a subrange for variety
+            if (sizes.length <= 2) return sizes.join('-');
+            const ranges = [
+                [0, 2], // XS-M
+                [1, 3], // S-L
+                [0, 3], // XS-L
+                [2, 4], // M-XL
+                [0, sizes.length-1], // XS-3XL or S-XXL
+                [1, sizes.length-2], // S-XXL or S-XL
+            ];
+            const r = ranges[Math.floor(Math.random()*ranges.length)];
+            const start = Math.max(0, r[0]);
+            const end = Math.min(sizes.length-1, r[1]);
+            if (start >= end) return `${sizes[0]}-${sizes[sizes.length-1]}`;
+            return `${sizes[start]}-${sizes[end]}`;
+        }
+    }
+
     // Render similar products section
     function renderSimilarProducts(currentProductId) {
         const grid = document.getElementById('similarProductsGrid');
@@ -311,12 +345,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     <img class="product-thumbnail" src="${product.image}" alt="${product.name}">
                 </a>
                 <div class="color-swatches-small">
-                    ${product.colors.map(c => `<div class="swatch-small" data-color="${c.code}"></div>`).join('')}
+                    ${product.colors.map(c => `<div class="swatch-small" data-color="${c.code}" style="background-color: ${c.code}; border-color: ${c.code === 'white' ? '#ccc' : c.code === 'black' ? '#000' : c.code === 'gray' ? '#808080' : c.code};"></div>`).join('')}
                 </div>
                 <p class="product-meta product-category">${product.category}</p>
-                <p class="product-meta product-name">${product.name}</p>
+                <p class="product-meta product-name" style="text-transform:none;">${product.name}</p>
                 <p class="product-meta product-price">Rp${product.price.toLocaleString('id-ID')}</p>
-                <p class="product-meta product-size-small">${product.sizes.join(', ')}</p>
+                <p class="product-meta product-size-small">${getSizeRange(product.sizes, product.category)}</p>
                 <img class="product-card-heart-small" src="assets/heartIcon.svg" alt="Add to Favorites">
             `;
             grid.appendChild(card);

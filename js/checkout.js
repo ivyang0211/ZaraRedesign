@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
-    // --- Header & Navbar Interactions (Copied for consistency) ---
+    // --- Header & Navbar Interactions ---
     const searchIcon = document.getElementById('searchIcon');
     const searchOverlay = document.getElementById('searchOverlay');
     const closeSearchButton = document.getElementById('closeSearch');
@@ -49,7 +49,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const shoppingCartIcon = document.querySelector('.bag-icon');
     if (shoppingCartIcon) {
-        shoppingCartIcon.addEventListener('click', () => alert(`You have ${bagItems} items in your shopping bag.`));
+        shoppingCartIcon.addEventListener('click', () => {
+            window.location.href = 'cart.html';
+        });
     }
 
     const favoritesIcon = document.querySelector('.heart-icon');
@@ -191,6 +193,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (placeOrderBtn) {
             placeOrderBtn.addEventListener('click', function() {
                 alert('Order Placed Successfully! Navigating to Track Order page.');
+                // Save checked out products and delivery type for track page
+                localStorage.setItem('last_checkout_items', localStorage.getItem('cart_items') || '[]');
+                const selectedDeliveryOption = document.querySelector('input[name="deliveryOption"]:checked');
+                localStorage.setItem('last_checkout_delivery', selectedDeliveryOption ? selectedDeliveryOption.value : 'ship');
                 // Clear cart after successful order
                 localStorage.removeItem('cart_items');
                 localStorage.setItem('bagItems', 0); // Reset bag count
@@ -204,31 +210,38 @@ document.addEventListener('DOMContentLoaded', function() {
         return 'Rp' + number.toLocaleString('id-ID');
     }
 
-    // Function to update the order summary with calculated values
+    // --- Function to update the order summary with calculated values ---
     function updateOrderSummary() {
+        // Always get latest cart items from localStorage for sync
+        let cartItems = JSON.parse(localStorage.getItem('cart_items') || '[]');
+
         const summaryItemCountElement = document.getElementById('summaryItemCount');
         const itemsSubtotalValueElement = document.getElementById('itemsSubtotalValue');
-        const subtotalValueElement = document.getElementById('subtotalValue');
+        const deliveryCostRow = document.querySelector('.order-summary-section .summary-row:nth-child(3)');
+        const deliveryCostValueElement = document.getElementById('deliveryCostValue');
         const vatIncludedValueElement = document.getElementById('vatIncludedValue');
         const orderTotalValueElement = document.getElementById('orderTotalValue');
 
         let currentBagItemsCount = cartItems.reduce((total, item) => total + item.quantity, 0);
         let calculatedItemsSubtotal = cartItems.reduce((total, item) => total + (item.quantity * item.price), 0);
-        
-        let deliveryCost = 0; 
+
+        let deliveryCost = 0;
         const selectedDeliveryOption = document.querySelector('input[name="deliveryOption"]:checked');
         if (selectedDeliveryOption && selectedDeliveryOption.value === 'ship') {
-            deliveryCost = 120000; // Example shipping cost for 'Ship To Address'
+            deliveryCost = 12000;
+            if (deliveryCostRow) deliveryCostRow.style.display = '';
+        } else {
+            if (deliveryCostRow) deliveryCostRow.style.display = 'none';
         }
 
         let calculatedSubtotal = calculatedItemsSubtotal + deliveryCost;
-        const vatPercentage = 0.11; // 11% VAT
+        const vatPercentage = 0.11;
         let calculatedVatAmount = calculatedSubtotal * vatPercentage;
         let calculatedOrderTotal = calculatedSubtotal + calculatedVatAmount;
 
         if (summaryItemCountElement) summaryItemCountElement.textContent = currentBagItemsCount;
         if (itemsSubtotalValueElement) itemsSubtotalValueElement.textContent = formatPrice(calculatedItemsSubtotal);
-        if (subtotalValueElement) subtotalValueElement.textContent = formatPrice(calculatedSubtotal);
+        if (deliveryCostValueElement) deliveryCostValueElement.textContent = deliveryCost > 0 ? formatPrice(deliveryCost) : '';
         if (vatIncludedValueElement) vatIncludedValueElement.textContent = formatPrice(calculatedVatAmount);
         if (orderTotalValueElement) orderTotalValueElement.textContent = formatPrice(calculatedOrderTotal);
 
@@ -279,11 +292,12 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 window.addEventListener('DOMContentLoaded', () => {
+    updateOrderSummary();
     renderOrderSummary();
 });
 
 function renderOrderSummary() {
-    const cart = CartUtils.getCart();
+    const cart = JSON.parse(localStorage.getItem('cart_items') || '[]');
     const container = document.querySelector('.order-summary-section');
     if (!container) return;
     if (cart.length === 0) {

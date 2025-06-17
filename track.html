@@ -87,60 +87,18 @@
             </section>
 
             <div class="track-order-details-layout">
-                <section class="ordered-items-summary">
-                    <div class="ordered-item">
-                        <img src="assets/clothes1.jpg" alt="Product Image" class="ordered-item-image">
-                        <div class="ordered-item-info">
-                            <p class="item-name">Ivory Office Trousers</p>
-                            <p class="item-meta">COLOUR: Ivory</p>
-                            <p class="item-meta">SIZE: XS</p>
-                        </div>
-                        <p class="item-price-total">Rp699.000</p>
-                    </div>
-                    <hr class="item-divider">
-                     <div class="ordered-item">
-                        <img src="assets/clothes2.jpg" alt="Product Image" class="ordered-item-image">
-                        <div class="ordered-item-info">
-                            <p class="item-name">Floral Maxi Dress</p>
-                            <p class="item-meta">COLOUR: Blue</p>
-                            <p class="item-meta">SIZE: S</p>
-                        </div>
-                        <p class="item-price-total">Rp1.299.000</p>
-                    </div>
-                    <hr class="item-divider thick-divider">
-
-                    <div class="order-totals-detailed">
-                        <div class="total-row">
-                            <span>Item(s) subtotal</span>
-                            <span>Rp1.998.000</span>
-                        </div>
-                        <div class="total-row">
-                            <span>Delivery subtotal</span>
-                            <span>Rp120.000</span>
-                        </div>
-                        <hr class="item-divider">
-                        <div class="total-row">
-                            <span>SUBTOTAL</span>
-                            <span>Rp2.118.000</span>
-                        </div>
-                        <div class="total-row">
-                            <span>VAT included</span>
-                            <span>Rp2.140.000</span>
-                        </div>
-                        <hr class="item-divider">
-                        <div class="total-row grand-total">
-                            <span>ORDER TOTAL</span>
-                            <span>Rp2.140.000</span>
-                        </div>
-                    </div>
+                <section class="ordered-items-summary" id="orderedItemsSummary">
+                    <!-- Will be filled by JS -->
                 </section>
+ 
 
-                <aside class="delivery-address-panel">
-                    <h2 class="panel-title">DELIVERY ADDRESS</h2>
-                    <p class="address-name-phone">Evelyn</p>
-                    <p class="address-name-phone">(+62) 813 9586 2344</p>
+
+                <aside class="delivery-address-panel" id="deliveryAddressPanel">
+                    <h2 class="panel-title" id="addressPanelTitle">DELIVERY ADDRESS</h2>
+                    <p class="address-name-phone">John Doe</p>
+                    <p class="address-name-phone">(+62) XXX XXXX XXXX</p>
                     <p class="address-full">
-                        742 Evergreen Terrace, Apartment 2A, Westwood District, Los Angeles, California 90001, United States, Phone: +1 (310) 555-0198
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                     </p>
                 </aside>
             </div>
@@ -157,7 +115,97 @@
             </div>
         </footer>
     </div>
-    <script src="js/track.js"></script> </body>
-    <script src="js/products_data.js"></script> <script src="js/home.js"></script> </body>
+    <script src="js/track.js"></script>
+    <script src="js/products_data.js"></script>
+    <script src="js/home.js"></script>
     <script src="js/cart.js"></script>
+    <script>
+    // --- TRACK PAGE PRODUCT & SUMMARY SYNC ---
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get last checked out products from localStorage (simulate order history)
+        // We'll use a key 'last_checkout_items' that should be set after successful checkout
+        let checkedOut = JSON.parse(localStorage.getItem('last_checkout_items') || '[]');
+        // Fallback: if not found, use cart_items (for demo)
+        if (!checkedOut.length) {
+            checkedOut = JSON.parse(localStorage.getItem('cart_items') || '[]');
+        }
+        const container = document.getElementById('orderedItemsSummary');
+        if (!container) return;
+
+        // Render product items
+        let itemsHTML = '';
+        let subtotal = 0;
+        checkedOut.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            subtotal += itemTotal;
+            itemsHTML += `
+                <div class="ordered-item">
+                    <img src="${item.image}" alt="Product Image" class="ordered-item-image">
+                    <div class="ordered-item-info">
+                        <p class="item-name">${item.name}</p>
+                        <p class="item-meta">COLOUR: ${item.color}</p>
+                        <p class="item-meta">SIZE: ${item.size}</p>
+                    </div>
+                    <p class="item-price-total">Rp${itemTotal.toLocaleString('id-ID')}</p>
+                </div>
+                <hr class="item-divider">
+            `;
+        });
+
+        // Delivery cost: use same logic as checkout (default 12000 if ship, 0 if pickup)
+        let deliveryCost = 0;
+        var deliveryType = localStorage.getItem('last_checkout_delivery') || 'ship';
+        if (deliveryType === 'ship') deliveryCost = 12000;
+
+        // VAT and total
+        let vat = Math.round((subtotal + deliveryCost) * 0.11);
+        let orderTotal = subtotal + deliveryCost + vat;
+
+        // Summary HTML
+        itemsHTML += `
+            <hr class="item-divider thick-divider">
+            <div class="order-totals-detailed">
+                <div class="total-row">
+                    <span>Item(s) subtotal</span>
+                    <span>Rp${subtotal.toLocaleString('id-ID')}</span>
+                </div>
+                ${deliveryCost > 0 ? `
+                <div class="total-row">
+                    <span>Delivery cost</span>
+                    <span>Rp${deliveryCost.toLocaleString('id-ID')}</span>
+                </div>` : ''}
+                <hr class="item-divider">
+                <div class="total-row">
+                    <span>VAT included</span>
+                    <span>Rp${vat.toLocaleString('id-ID')}</span>
+                </div>
+                <hr class="item-divider">
+                <div class="total-row grand-total">
+                    <span>ORDER TOTAL</span>
+                    <span>Rp${orderTotal.toLocaleString('id-ID')}</span>
+                </div>
+            </div>
+        `;
+        container.innerHTML = itemsHTML;
+
+        // Delivery address or pickup location logic
+        var addressPanel = document.getElementById('deliveryAddressPanel');
+        var addressPanelTitle = document.getElementById('addressPanelTitle');
+        if (addressPanel) {
+            if (deliveryType === 'pickup') {
+                addressPanelTitle.textContent = 'PICKUP LOCATION';
+                addressPanel.innerHTML = `
+                    <h2 class="panel-title">PICKUP LOCATION</h2>
+                    <p class="address-name-phone">ZARA Grand Indonesia</p>
+                    <p class="address-full">
+                        Grand Indonesia Mall, West Mall, Level 2, Jl. M.H. Thamrin No.1, Jakarta Pusat 10310, Indonesia<br>
+                        Phone: (021) 2358-1234
+                    </p>
+                `;
+            }
+            // else: do nothing, keep delivery address as is
+        }
+    });
+    </script>
+</body>
 </html>

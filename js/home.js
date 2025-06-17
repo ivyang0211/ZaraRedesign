@@ -12,8 +12,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const favCount = document.getElementById('favCount');
     const bagCount = document.getElementById('bagCount');
 
-    let favorites = 0;
-    let bagItems = 0;
+    // Sync counts from localStorage
+    function syncHeaderCounts() {
+        let favorites = parseInt(localStorage.getItem('favorites') || '0');
+        let bagItems = 0;
+        let cartItems = JSON.parse(localStorage.getItem('cart_items') || '[]');
+        bagItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+        if (favCount) favCount.textContent = favorites;
+        if (bagCount) bagCount.textContent = bagItems;
+    }
+    syncHeaderCounts();
 
     searchIcon.addEventListener('click', () => {
         searchOverlay.classList.add('active');
@@ -44,7 +52,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const shoppingCartIcon = document.querySelector('.bag-icon');
     if (shoppingCartIcon) {
-        shoppingCartIcon.addEventListener('click', () => alert(`You have ${bagItems} items in your shopping bag.`));
+        shoppingCartIcon.addEventListener('click', () => {
+            window.location.href = 'cart.html';
+        });
     }
 
     const favoritesIcon = document.querySelector('.heart-icon');
@@ -57,18 +67,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const heartIcon = card.querySelector('.product-card-heart');
         const colorSwatches = card.querySelectorAll('.swatch');
         const productLinkElement = card.querySelector('a');
+        const productNameElement = card.querySelector('.product-name');
 
         // Toggle favorite status
         if (heartIcon) {
             heartIcon.addEventListener('click', (event) => {
                 event.stopPropagation(); // Prevent card navigation
                 const isFavorited = heartIcon.classList.toggle('favorited');
+                let favorites = parseInt(localStorage.getItem('favorites') || '0');
                 if (isFavorited) {
                     favorites++;
                 } else {
                     favorites = Math.max(0, favorites - 1);
                 }
-                favCount.textContent = favorites;
+                localStorage.setItem('favorites', favorites);
+                syncHeaderCounts();
+                alert(isFavorited ? 'Added to favorites!' : 'Removed from favorites!');
             });
         }
 
@@ -80,6 +94,51 @@ document.addEventListener('DOMContentLoaded', () => {
                 swatch.classList.add('active');
             });
         });
+
+        // Add to Cart on product name click (simulate add to cart)
+        if (productNameElement) {
+            productNameElement.addEventListener('click', (event) => {
+                event.stopPropagation();
+                // Get product info from ALL_PRODUCTS_DATA if possible
+                const productId = card.getAttribute('data-product-id');
+                let product = null;
+                if (window.ALL_PRODUCTS_DATA && productId) {
+                    product = window.ALL_PRODUCTS_DATA.find(p => p.id === productId);
+                }
+                // Fallback: get info from DOM
+                const name = product ? product.name : productNameElement.textContent.trim();
+                const color = card.querySelector('.swatch.active')?.dataset.color || (product?.colors?.[0]?.label || '');
+                const size = card.querySelector('.product-size')?.textContent || (product?.sizes?.[0] || '');
+                const price = product ? product.price : parseInt(card.querySelector('.product-price')?.textContent.replace(/[^\d]/g, '')) || 0;
+                const img = product ? product.image : card.querySelector('.product-thumbnail')?.src || '';
+                const qty = 1;
+
+                // Add to localStorage cart_items (array of objects)
+                let cartItems = JSON.parse(localStorage.getItem('cart_items') || '[]');
+                // Check if same product/color/size exists
+                let found = cartItems.find(item =>
+                    item.id === productId &&
+                    item.color === color &&
+                    item.size === size
+                );
+                if (found) {
+                    found.quantity += qty;
+                } else {
+                    cartItems.push({
+                        id: productId,
+                        name,
+                        image: img,
+                        color,
+                        size,
+                        price,
+                        quantity: qty
+                    });
+                }
+                localStorage.setItem('cart_items', JSON.stringify(cartItems));
+                syncHeaderCounts();
+                alert(`"${name}" added to bag!`);
+            });
+        }
 
         if (productLinkElement) {
             card.addEventListener('click', (event) => {
@@ -121,6 +180,71 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+
+    // --- FAVORITE (LIKE) SYNC LOGIC ---
+
+    function getFavoriteProductIds() {
+        return JSON.parse(localStorage.getItem('favorite_product_ids') || '[]');
+    }
+    function setFavoriteProductIds(ids) {
+        localStorage.setItem('favorite_product_ids', JSON.stringify(ids));
+    }
+    function isProductFavorited(productId) {
+        const ids = getFavoriteProductIds();
+        return ids.includes(productId);
+    }
+    function toggleFavoriteProduct(productId) {
+        let ids = getFavoriteProductIds();
+        if (ids.includes(productId)) {
+            ids = ids.filter(id => id !== productId);
+        } else {
+            ids.push(productId);
+        }
+        setFavoriteProductIds(ids);
+        return ids.includes(productId);
+    }
+
+    // Render favorite state for all product cards
+    function renderFavoriteStates() {
+        document.querySelectorAll('.product-card').forEach(card => {
+            const productId = card.getAttribute('data-product-id');
+            const heart = card.querySelector('.product-card-heart, .product-card-heart-small');
+            if (heart) {
+                if (isProductFavorited(productId)) {
+                    heart.classList.add('favorited');
+                    // Set heart icon color to pink using CSS filter
+                    heart.style.filter = 'invert(22%) sepia(97%) saturate(7496%) hue-rotate(320deg) brightness(97%) contrast(101%)';
+                } else {
+                    heart.classList.remove('favorited');
+                    heart.style.filter = '';
+                }
+            }
+        });
+    }
+
+    // Attach click event to all product card hearts
+    function setupFavoriteListeners() {
+        document.querySelectorAll('.product-card').forEach(card => {
+            const productId = card.getAttribute('data-product-id');
+            const heart = card.querySelector('.product-card-heart, .product-card-heart-small');
+            if (heart) {
+                heart.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const isFav = toggleFavoriteProduct(productId);
+                    renderFavoriteStates();
+                    // Optionally update favCount in header
+                    const favCount = document.getElementById('favCount');
+                    if (favCount) {
+                        favCount.textContent = getFavoriteProductIds().length;
+                    }
+                });
+            }
+        });
+    }
+
+    // On page load, sync favorite state
+    renderFavoriteStates();
+    setupFavoriteListeners();
 
     console.log("Homepage interactivity loaded!");
 });

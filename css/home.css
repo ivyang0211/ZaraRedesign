@@ -331,8 +331,8 @@ a .active{
     transition: filter 0.3s ease;
 }
 
-.product-card-heart.favorited {
-    filter: invert(18%) sepia(91%) saturate(7483%) hue-rotate(359deg) brightness(99%) contrast(110%); /* Red color */
+.product-card-heart.favorited, .product-card-heart-small.favorited {
+    filter: invert(22%) sepia(97%) saturate(7496%) hue-rotate(320deg) brightness(97%) contrast(101%);
 }
 
 .color-swatches {

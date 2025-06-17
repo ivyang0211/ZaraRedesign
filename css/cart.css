@@ -243,11 +243,139 @@ body {
     background-color: #f0f0f0;
 }
 
-/* Similar Products Section - Style dari catalogue.css seharusnya berlaku */
+/* Similar Products Section - Match home page new arrivals grid style */
 .similar-products-section {
-    margin-top: 60px; /* Jarak di atas produk serupa */
+    margin-top: 60px;
+    padding: 80px 0;
+    text-align: center;
 }
 
+.section-title {
+    font-size: 38px;
+    font-weight: normal;
+    text-align: center;
+    margin: 0 auto 60px auto;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 0 40px;
+}
+
+.product-card {
+    background-color: #ffffff;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.product-thumbnail {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.product-card-heart-small {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+    filter: grayscale(100%) brightness(0%) sepia(100%) hue-rotate(0deg) saturate(0%) invert(0%);
+    transition: filter 0.3s ease;
+    z-index: 2;
+}
+.product-card-heart-small.favorited {
+    filter: invert(22%) sepia(97%) saturate(7496%) hue-rotate(320deg) brightness(97%) contrast(101%);
+}
+
+.color-swatches-small {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-top: 10px;
+    padding-left: 5px;
+    margin-bottom: 5px;
+}
+
+.swatch-small {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1px solid #cccccc;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+/* Specific color swatches for small swatches */
+.swatch-small[data-color="black"] { background-color: #000; }
+.swatch-small[data-color="white"] { background-color: #fff; border-color: #ccc; }
+.swatch-small[data-color="red"] { background-color: #E74C3C; }
+.swatch-small[data-color="blue"] { background-color: #3498DB; }
+.swatch-small[data-color="green"] { background-color: #2ECC71; }
+.swatch-small[data-color="yellow"] { background-color: #F1C40F; }
+.swatch-small[data-color="purple"] { background-color: #9B59B6; }
+.swatch-small[data-color="gray"] { background-color: #7F8C8D; }
+.swatch-small[data-color="beige"] { background-color: #F5F5DC; }
+.swatch-small[data-color="brown"] { background-color: #A0522D; }
+.swatch-small[data-color="navy"] { background-color: #000080; }
+.swatch-small[data-color="pink"] { background-color: #FFC0CB; }
+.swatch-small[data-color="gold"] { background-color: #FFD700; }
+.swatch-small[data-color="silver"] { background-color: #C0C0C0; }
+.swatch-small[data-color="orange"] { background-color: #FFA500; }
+.swatch-small[data-color="olive"] { background-color: #808000; }
+.swatch-small[data-color="burgundy"] { background-color: #800020; }
+
+.product-info-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 2px;
+}
+
+.product-meta {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 1.4;
+    margin: 0;
+    padding-left: 5px;
+}
+
+.product-category {
+    font-size: 14px;
+    color: #666;
+    text-transform: uppercase;
+    margin-top: 5px;
+}
+
+.product-name {
+    font-size: 17px;
+    font-weight: normal;
+    color: #000;
+    margin-bottom: 2px;
+}
+
+.product-price {
+    font-size: 17px;
+    font-weight: normal;
+    color: #000;
+    margin-bottom: 10px;
+}
+
+.product-size-small {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 10px;
+}
 
 /* Penyesuaian responsif untuk halaman keranjang */
 @media (max-width: 1024px) {

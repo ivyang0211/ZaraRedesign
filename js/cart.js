@@ -170,9 +170,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // Panggil fungsi inisialisasi utama
-    initializeCartInteractions();
-    checkEmptyCart(); // Periksa saat load juga
-    const CART_KEY = 'cart';
+    // initializeCartInteractions();
+    // checkEmptyCart();
+    // const CART_KEY = 'cart';
 
 function getCart() {
     return JSON.parse(localStorage.getItem(CART_KEY)) || [];
@@ -310,4 +310,330 @@ function updateCartCountBadge() {
     const badge = document.getElementById('cartCountBadge');
     if (badge) badge.textContent = CartUtils.getCartCount();
 }
+
+// --- FAVORITE (LIKE) SYNC LOGIC FOR SIMILAR PRODUCTS IN CART ---
+
+function getFavoriteProductIds() {
+    return JSON.parse(localStorage.getItem('favorite_product_ids') || '[]');
+}
+function setFavoriteProductIds(ids) {
+    localStorage.setItem('favorite_product_ids', JSON.stringify(ids));
+}
+function isProductFavorited(productId) {
+    const ids = getFavoriteProductIds();
+    return ids.includes(productId);
+}
+function toggleFavoriteProduct(productId) {
+    let ids = getFavoriteProductIds();
+    if (ids.includes(productId)) {
+        ids = ids.filter(id => id !== productId);
+    } else {
+        ids.push(productId);
+    }
+    setFavoriteProductIds(ids);
+    return ids.includes(productId);
+}
+function renderFavoriteStatesForSimilar() {
+    document.querySelectorAll('.similar-products-section .product-card').forEach(card => {
+        const productId = card.getAttribute('data-product-id');
+        const heart = card.querySelector('.product-card-heart-small');
+        if (heart) {
+            if (isProductFavorited(productId)) {
+                heart.classList.add('favorited');
+                heart.style.filter = 'invert(22%) sepia(97%) saturate(7496%) hue-rotate(320deg) brightness(97%) contrast(101%)';
+            } else {
+                heart.classList.remove('favorited');
+                heart.style.filter = '';
+            }
+        }
+    });
+    // Also update the global favCount in header
+    const favCount = document.getElementById('favCount');
+    if (favCount) {
+        favCount.textContent = getFavoriteProductIds().length;
+    }
+}
+function setupFavoriteListenersForSimilar() {
+    document.querySelectorAll('.similar-products-section .product-card').forEach(card => {
+        const productId = card.getAttribute('data-product-id');
+        const heart = card.querySelector('.product-card-heart-small');
+        if (heart) {
+            heart.addEventListener('click', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+                toggleFavoriteProduct(productId);
+                renderFavoriteStatesForSimilar();
+            });
+        }
+    });
+}
+
+// Replace old similar-products-section like logic with sync logic
+document.addEventListener('DOMContentLoaded', function() {
+    // ...existing code...
+    renderFavoriteStatesForSimilar();
+    setupFavoriteListenersForSimilar();
+    // ...existing code...
+});
+
+    // Render cart items from localStorage
+    function renderCartItemsFromStorage() {
+        const cartItemsSection = document.querySelector('.cart-items-section');
+        if (!cartItemsSection) return;
+        let cartItems = JSON.parse(localStorage.getItem('cart_items') || '[]');
+        cartItemsSection.innerHTML = '';
+        // Hide/show checkout button based on cart items
+        const checkoutBtn = document.querySelector('.checkout-btn');
+        const continueShoppingBtn = document.querySelector('.continue-shopping-btn');
+        if (cartItems.length === 0) {
+            cartItemsSection.innerHTML = '<p class="empty-cart-message" style="text-align:center;padding:20px;font-size:18px;">Your shopping cart is empty.</p>';
+            if (checkoutBtn) checkoutBtn.style.display = 'none';
+            if (continueShoppingBtn) continueShoppingBtn.textContent = 'Shop Now';
+            renderOrderSummaryFromCart(cartItems);
+            syncHeaderCounts();
+            return;
+        } else {
+            if (checkoutBtn) checkoutBtn.style.display = '';
+            if (continueShoppingBtn) continueShoppingBtn.textContent = 'Continue Shopping';
+        }
+        cartItems.forEach((item, idx) => {
+            const cartItem = document.createElement('div');
+            cartItem.className = 'cart-item';
+            cartItem.innerHTML = `
+                <img class="cart-item-image" src="${item.image}" alt="${item.name}">
+                <div class="cart-item-details">
+                    <div class="cart-item-info">
+                        <p class="cart-item-name">${item.name}</p>
+                        <p class="cart-item-meta">COLOUR: ${item.color}</p>
+                        <p class="cart-item-meta">SIZE: ${item.size}</p>
+                        <p class="cart-item-unit-price">Rp${item.price.toLocaleString('id-ID')}</p>
+                    </div>
+                    <div class="cart-item-controls">
+                        <div class="cart-item-quantity-section">
+                            <span class="quantity-label">QUANTITY</span>
+                            <div class="quantity-selector">
+                                <button class="qty-btn">-</button>
+                                <span class="qty-display">${item.quantity}</span>
+                                <button class="qty-btn">+</button>
+                            </div>
+                        </div>
+                        <div class="cart-item-subtotal-section">
+                            <span class="subtotal-label">SUBTOTAL</span>
+                            <p class="cart-item-subtotal-value">Rp${(item.price * item.quantity).toLocaleString('id-ID')}</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="remove-item-btn" aria-label="Remove item">&times;</button>
+            `;
+            cartItemsSection.appendChild(cartItem);
+
+            // Divider except after last item
+            if (idx < cartItems.length - 1) {
+                const divider = document.createElement('hr');
+                divider.className = 'cart-item-divider';
+                cartItemsSection.appendChild(divider);
+            }
+
+            // Quantity buttons
+            const qtyBtns = cartItem.querySelectorAll('.qty-btn');
+            const qtyDisplay = cartItem.querySelector('.qty-display');
+            const subtotalValueElement = cartItem.querySelector('.cart-item-subtotal-value');
+            qtyBtns[0].addEventListener('click', () => {
+                if (item.quantity > 1) {
+                    item.quantity--;
+                    qtyDisplay.textContent = item.quantity;
+                    subtotalValueElement.textContent = 'Rp' + (item.price * item.quantity).toLocaleString('id-ID');
+                    localStorage.setItem('cart_items', JSON.stringify(cartItems));
+                    updateCartSummary();
+                    renderCartItemsFromStorage();
+                }
+            });
+            qtyBtns[1].addEventListener('click', () => {
+                item.quantity++;
+                qtyDisplay.textContent = item.quantity;
+                subtotalValueElement.textContent = 'Rp' + (item.price * item.quantity).toLocaleString('id-ID');
+                localStorage.setItem('cart_items', JSON.stringify(cartItems));
+                updateCartSummary();
+                renderCartItemsFromStorage();
+            });
+
+            // Remove button
+            cartItem.querySelector('.remove-item-btn').addEventListener('click', () => {
+                cartItems.splice(idx, 1);
+                localStorage.setItem('cart_items', JSON.stringify(cartItems));
+                renderCartItemsFromStorage();
+                updateCartSummary();
+            });
+        });
+        renderOrderSummaryFromCart(cartItems);
+        syncHeaderCounts();
+    }
+
+    // --- Header Sync Function ---
+    function syncHeaderCounts() {
+        const favCountElement = document.getElementById('favCount');
+        const bagCountElement = document.getElementById('bagCount');
+        let favorites = parseInt(localStorage.getItem('favorites') || '0');
+        let cartItems = JSON.parse(localStorage.getItem('cart_items') || '[]');
+        let bagItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+        if (favCountElement) favCountElement.textContent = favorites;
+        if (bagCountElement) bagCountElement.textContent = bagItems;
+    }
+
+    // --- Render Cart Items and Order Summary from localStorage ---
+    function renderCartItemsFromStorage() {
+        const cartItemsSection = document.querySelector('.cart-items-section');
+        if (!cartItemsSection) return;
+        let cartItems = JSON.parse(localStorage.getItem('cart_items') || '[]');
+        cartItemsSection.innerHTML = '';
+        // Hide/show checkout button based on cart items
+        const checkoutBtn = document.querySelector('.checkout-btn');
+        const continueShoppingBtn = document.querySelector('.continue-shopping-btn');
+        if (cartItems.length === 0) {
+            cartItemsSection.innerHTML = '<p class="empty-cart-message" style="text-align:center;padding:20px;font-size:18px;">Your shopping cart is empty.</p>';
+            if (checkoutBtn) checkoutBtn.style.display = 'none';
+            if (continueShoppingBtn) continueShoppingBtn.textContent = 'Shop Now';
+            renderOrderSummaryFromCart(cartItems);
+            syncHeaderCounts();
+            return;
+        } else {
+            if (checkoutBtn) checkoutBtn.style.display = '';
+            if (continueShoppingBtn) continueShoppingBtn.textContent = 'Continue Shopping';
+        }
+        cartItems.forEach((item, idx) => {
+            const cartItem = document.createElement('div');
+            cartItem.className = 'cart-item';
+            cartItem.innerHTML = `
+                <img class="cart-item-image" src="${item.image}" alt="${item.name}">
+                <div class="cart-item-details">
+                    <div class="cart-item-info">
+                        <p class="cart-item-name">${item.name}</p>
+                        <p class="cart-item-meta">COLOUR: ${item.color}</p>
+                        <p class="cart-item-meta">SIZE: ${item.size}</p>
+                        <p class="cart-item-unit-price">Rp${item.price.toLocaleString('id-ID')}</p>
+                    </div>
+                    <div class="cart-item-controls">
+                        <div class="cart-item-quantity-section">
+                            <span class="quantity-label">QUANTITY</span>
+                            <div class="quantity-selector">
+                                <button class="qty-btn">-</button>
+                                <span class="qty-display">${item.quantity}</span>
+                                <button class="qty-btn">+</button>
+                            </div>
+                        </div>
+                        <div class="cart-item-subtotal-section">
+                            <span class="subtotal-label">SUBTOTAL</span>
+                            <p class="cart-item-subtotal-value">Rp${(item.price * item.quantity).toLocaleString('id-ID')}</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="remove-item-btn" aria-label="Remove item">&times;</button>
+            `;
+            cartItemsSection.appendChild(cartItem);
+
+            // Divider except after last item
+            if (idx < cartItems.length - 1) {
+                const divider = document.createElement('hr');
+                divider.className = 'cart-item-divider';
+                cartItemsSection.appendChild(divider);
+            }
+
+            // Quantity buttons
+            const qtyBtns = cartItem.querySelectorAll('.qty-btn');
+            const qtyDisplay = cartItem.querySelector('.qty-display');
+            const subtotalValueElement = cartItem.querySelector('.cart-item-subtotal-value');
+            qtyBtns[0].addEventListener('click', () => {
+                if (item.quantity > 1) {
+                    item.quantity--;
+                    qtyDisplay.textContent = item.quantity;
+                    subtotalValueElement.textContent = 'Rp' + (item.price * item.quantity).toLocaleString('id-ID');
+                    localStorage.setItem('cart_items', JSON.stringify(cartItems));
+                    renderOrderSummaryFromCart(cartItems);
+                    renderCartItemsFromStorage();
+                    syncHeaderCounts();
+                }
+            });
+            qtyBtns[1].addEventListener('click', () => {
+                item.quantity++;
+                qtyDisplay.textContent = item.quantity;
+                subtotalValueElement.textContent = 'Rp' + (item.price * item.quantity).toLocaleString('id-ID');
+                localStorage.setItem('cart_items', JSON.stringify(cartItems));
+                renderOrderSummaryFromCart(cartItems);
+                renderCartItemsFromStorage();
+                syncHeaderCounts();
+            });
+
+            // Remove button
+            cartItem.querySelector('.remove-item-btn').addEventListener('click', () => {
+                cartItems.splice(idx, 1);
+                localStorage.setItem('cart_items', JSON.stringify(cartItems));
+                renderOrderSummaryFromCart(cartItems);
+                renderCartItemsFromStorage();
+                syncHeaderCounts();
+            });
+        });
+        renderOrderSummaryFromCart(cartItems);
+        syncHeaderCounts();
+    }
+
+    // --- Render Order Summary from cart_items ---
+    function renderOrderSummaryFromCart(cartItems) {
+        // If not passed, get from localStorage
+        if (!cartItems) cartItems = JSON.parse(localStorage.getItem('cart_items') || '[]');
+        const summaryTitle = document.querySelector('.order-summary-section .summary-title');
+        const summaryItemCountElement = document.getElementById('summaryItemCount');
+        const itemsSubtotalRow = Array.from(document.querySelectorAll('.order-summary-section .summary-row'))
+            .find(row => row.children[0].textContent.includes("Item(s) subtotal"));
+       
+        const subtotalRow = Array.from(document.querySelectorAll('.order-summary-section .summary-row'))
+            .find(row => row.children[0].textContent.trim().toUpperCase() === "SUBTOTAL");
+        
+        const vatRow = Array.from(document.querySelectorAll('.order-summary-section .summary-row'))
+            .find(row => row.children[0].textContent.includes("VAT included"));
+        const orderTotalRow = Array.from(document.querySelectorAll('.order-summary-section .summary-row.total'));
+
+        // Calculate
+        let itemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+        let itemsSubtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+        // Delivery cost logic (match checkout.js)
+        let deliveryCost = 0;
+        // If you want to match checkout's logic, you can check for a delivery option in localStorage or just keep it 0 here
+
+        let subtotal = itemsSubtotal + deliveryCost;
+        const vatPercentage = 0.11; 
+        let vat = subtotal * vatPercentage;
+        let orderTotal = subtotal + vat;
+
+        // Update
+        if (summaryTitle) summaryTitle.innerHTML = `ORDER SUMMARY | <span id="summaryItemCount">${itemCount}</span> ITEM(S)`;
+        if (summaryItemCountElement) summaryItemCountElement.textContent = itemCount;
+        if (itemsSubtotalRow) itemsSubtotalRow.children[1].textContent = 'Rp' + itemsSubtotal.toLocaleString('id-ID');
+        if (subtotalRow) subtotalRow.children[1].textContent = 'Rp' + subtotal.toLocaleString('id-ID');
+        if (vatRow) vatRow.children[1].textContent = 'Rp' + vat.toLocaleString('id-ID');
+        if (orderTotalRow.length && orderTotalRow[0].children[1]) orderTotalRow[0].children[1].textContent = 'Rp' + orderTotal.toLocaleString('id-ID');
+    }
+
+    // If you have favorite (heart) icon logic in cart page, also update localStorage and call syncHeaderCounts()
+    // Example for similar products section:
+    document.querySelectorAll('.similar-products-section .product-card-heart-small').forEach(heartIcon => {
+        heartIcon.addEventListener('click', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            const isFavorited = this.classList.toggle('favorited');
+            let favorites = parseInt(localStorage.getItem('favorites') || '0');
+            if (isFavorited) {
+                favorites++;
+            } else {
+                favorites = Math.max(0, favorites - 1);
+            }
+            localStorage.setItem('favorites', favorites);
+            syncHeaderCounts();
+        });
+    });
+
+    // Call on load
+    syncHeaderCounts();
+    renderCartItemsFromStorage();
+    checkEmptyCart();
 });
